@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+
+  GOVERNMENT_ADMIN
+  GOVERNMENT_STAFF
+
+  HOSPITAL_ADMIN
+  DATA_ENCODER
+
+  SUPER_USER
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  username   String    @unique
+  password   String
+  first_name String
+  last_name  String
+  role       Role      @default(USER)
+  Hospital   Hospital? @relation(fields: [hospitalId], references: [id])
+  hospitalId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Hospital {
+  id     Int    @id @default(autoincrement())
+  name   String
+  region String
+  city   String
+  zone   String
+  woreda String
+  admins User[]
+
+  medicalEquipmentStore MedicalEquipmentStore[]
+  assets                Asset[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum HumanResourceType {
+  DOCTOR
+  NURSE
+}
+
+model HumanResource {
+  id   Int               @id @default(autoincrement())
+  name String
+  type HumanResourceType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MedicalEquipment {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  medicalEquipmentStore MedicalEquipmentStore[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MedicalEquipmentStore {
+  id               Int              @id @default(autoincrement())
+  hospital         Hospital         @relation(fields: [hospitalId], references: [id])
+  medicalEquipment MedicalEquipment @relation(fields: [medicalEquipmentId], references: [id])
+  quantity         Int              @default(0)
+  inStock          Boolean          @default(false)
+
+  hospitalId         Int
+  medicalEquipmentId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AssetType {
+  CAR
+  MEDICAL_EQUIPMENT
+  OTHER
+}
+
+model Asset {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  hospital  Hospital  @relation(fields: [hospitalId], references: [id])
+  assetType AssetType
+  quantity  Int       @default(0)
+
+  hospitalId Int
+}

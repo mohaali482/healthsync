@@ -1,0 +1,83 @@
+import Link from "next/link"
+import { Button } from "../ui/button"
+import { Home, LineChart, Package, Package2, PanelLeft, Search, ShoppingCart, Stethoscope, Users2 } from "lucide-react"
+import { Input } from "../ui/input"
+import Image from "next/image"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
+import DefaultBreadcrumb from "../DefaultBreadcrumb"
+import { logout } from "@/app/lib/actions"
+import HeaderLink from "./HeaderLink"
+
+function Header({ links }: {
+    links: {
+        link: string;
+        linkName: string;
+        icon: JSX.Element;
+    }[]
+}) {
+
+    return (
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+            <Sheet>
+                <SheetTrigger asChild>
+                    <Button size="icon" variant="outline" className="sm:hidden">
+                        <PanelLeft className="h-5 w-5" />
+                        <span className="sr-only">Toggle Menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="sm:max-w-xs">
+                    <nav className="grid gap-6 text-lg font-medium">
+                        <Link
+                            href="/dashboard"
+                            className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
+                        >
+                            <Stethoscope className="h-4 w-4 transition-all group-hover:scale-110" />
+                            <span className="sr-only">HealthSync</span>
+                        </Link>
+                        {links.map((link, index) => (
+                            <HeaderLink key={index} {...link} />
+                        ))}
+                    </nav>
+                </SheetContent>
+            </Sheet>
+            <DefaultBreadcrumb />
+            <div className="relative ml-auto md:grow-0">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="overflow-hidden rounded-full"
+                        >
+                            <Image
+                                src="/placeholder-user.jpg"
+                                width={36}
+                                height={36}
+                                alt="Avatar"
+                                className="overflow-hidden rounded-full"
+                            />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Settings</DropdownMenuItem>
+                        <DropdownMenuItem>Support</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <form action={async () => await logout()}>
+                            <DropdownMenuItem>
+                                <button className="w-full text-left" type="submit">
+                                    Logout
+                                </button>
+                            </DropdownMenuItem>
+                        </form>
+
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+        </header>
+    )
+}
+
+export default Header

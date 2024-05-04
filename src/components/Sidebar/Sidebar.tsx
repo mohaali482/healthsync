@@ -14,7 +14,7 @@ function Sidebar({ links, open, setOpen }: {
     open: boolean, setOpen: React.Dispatch<SetStateAction<boolean>>
 }) {
     return (
-        <aside className={cn("fixed inset-y-0 left-0 z-10 hidden flex-col border-r bg-background sm:flex transition-[width] ease-in-out", open ? "w-64" : "w-24")}>
+        <aside className={cn("fixed inset-y-0 left-0 z-10 hidden flex-col border-r bg-background md:flex transition-[width] ease-in-out", open ? "w-64" : "w-24")}>
             <nav className="flex flex-col items-start gap-4 px-4 sm:py-4">
                 <div className={cn('flex items-center gap-4 justify-center mb-10', !open && "w-full")}>
                     <div className='rounded-full bg-primary h-9 w-9 text-primary-foreground flex shrink-0 items-center justify-center'>

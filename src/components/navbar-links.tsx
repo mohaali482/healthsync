@@ -1,32 +1,38 @@
 import { Briefcase, Home, Hospital, LineChart, NotebookText, Syringe, Users } from "lucide-react";
 
-export const links = {
+export const links: {
+  SUPER_USER: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]
+  GOVERNMENT: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]
+  HOSPITAL_ADMIN: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]
+  DATA_ENCODER: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]
+}
+  = {
   SUPER_USER: [
-    { link: '/dashboard', linkName: 'Dashboard', icon: <Home /> },
-    { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart /> },
-    { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital /> },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe /> },
-    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase /> },
-    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText /> },
-    { link: '/dashboard/users', linkName: 'Users', icon: <Users /> },
+    { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart />, activeLinks: ["/dashboard/analysis"] },
+    { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] },
+    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard/equipments"] },
+    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard/resources"] },
+    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard/reports"] },
+    { link: '/dashboard/users', linkName: 'Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
   ],
   GOVERNMENT: [
-    { link: '/dashboard', linkName: 'Dashboard', icon: <Home /> },
-    { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart /> },
-    { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital /> }
+    { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart />, activeLinks: ['/dashboard/analysis'] },
+    { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] }
   ],
   HOSPITAL_ADMIN: [
-    { link: '/dashboard', linkName: 'Dashboard', icon: <Home /> },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe /> },
-    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase /> },
-    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText /> },
-    { link: '/dashboard/users', linkName: 'Users', icon: <Users /> },
+    { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/users', linkName: 'Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
   ],
   DATA_ENCODER: [
-    { link: '/dashboard', linkName: 'Dashboard', icon: <Home /> },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe /> },
-    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase /> },
-    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText /> },
+    { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
   ],
 };
 

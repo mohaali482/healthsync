@@ -13,7 +13,8 @@ function Header({ links }: {
     links: {
         link: string;
         linkName: string;
-        icon: JSX.Element;
+        icon: React.ReactNode
+        activeLinks: string[];
     }[]
 }) {
 

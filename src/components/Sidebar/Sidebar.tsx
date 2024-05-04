@@ -9,7 +9,8 @@ function Sidebar({ links, open, setOpen }: {
     links: {
         link: string;
         linkName: string;
-        icon: JSX.Element;
+        icon: React.ReactNode
+        activeLinks: string[];
     }[],
     open: boolean, setOpen: React.Dispatch<SetStateAction<boolean>>
 }) {

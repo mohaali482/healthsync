@@ -5,7 +5,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
-function SidebarLink({ icon, link, linkName, open }: { icon: React.ReactNode, link: string, linkName: string, open: boolean }) {
+function SidebarLink({ icon, link, linkName, open, activeLinks }: { icon: React.ReactNode, link: string, linkName: string, open: boolean, activeLinks: string[]; }) {
     const pathname = usePathname()
 
     return (
@@ -15,7 +15,7 @@ function SidebarLink({ icon, link, linkName, open }: { icon: React.ReactNode, li
                     href={link}
                     className={
                         cn("flex h-9 py-5 w-full px-4 items-center justify-start rounded-lg transition-colors md:h-8 overflow-hidden",
-                            pathname === link ? "bg-accent text-accent-foreground" : "hover:bg-secondary/[0.2]"
+                            activeLinks.includes(pathname) ? "bg-accent text-accent-foreground" : "hover:bg-secondary/[0.2]"
                         )}>
                     {icon}
                     <span className={cn('pl-2 transition-all ease-in-out', !open && "sr-only")}>{linkName}</span>

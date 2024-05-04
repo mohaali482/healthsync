@@ -9,7 +9,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "random-generate": "ts-node prisma/random-generate.ts"
     },
     "dependencies": {
         "@auth/prisma-adapter": "^2.0.0",
@@ -39,6 +40,7 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
+        "@faker-js/faker": "^8.4.1",
         "@types/node": "^20.12.7",
         "@types/react": "^18.2.79",
         "@types/react-dom": "^18",

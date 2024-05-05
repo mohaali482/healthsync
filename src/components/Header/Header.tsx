@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { PanelLeft, Stethoscope } from "lucide-react"
+import { PanelLeft, Stethoscope, UserIcon } from "lucide-react"
 import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
@@ -50,13 +50,7 @@ function Header({ links }: {
                             size="icon"
                             className="overflow-hidden rounded-full"
                         >
-                            <Image
-                                src="/placeholder-user.jpg"
-                                width={36}
-                                height={36}
-                                alt="Avatar"
-                                className="overflow-hidden rounded-full"
-                            />
+                            <UserIcon />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">

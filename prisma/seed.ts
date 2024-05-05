@@ -10,6 +10,7 @@ async function main() {
       first_name: process.env.SUPER_USER_FIRST_NAME!,
       last_name: process.env.SUPER_USER_LAST_NAME!,
       username: process.env.SUPER_USER_USERNAME!,
+      email: process.env.SUPER_USER_EMAIL!,
       password: await bcrypt.hash(
         process.env.SUPER_USER_PASSWORD!,
         parseInt(process.env.HASH_ROUNDS!)

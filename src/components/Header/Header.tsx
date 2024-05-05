@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { Home, LineChart, Package, Package2, PanelLeft, Search, ShoppingCart, Stethoscope, Users2 } from "lucide-react"
-import { Input } from "../ui/input"
+import { PanelLeft, Stethoscope } from "lucide-react"
 import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"

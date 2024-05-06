@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma';
 import {
+  hospitalAdminEditSchema,
   hospitalAdminSchema,
+  hospitalEditSchema,
   hospitalSchema
 } from '@/lib/validations/hospital';
 import { z } from 'zod';
@@ -83,6 +85,49 @@ export async function createAdminForHospital(
           role: 'HOSPITAL_ADMIN'
         }
       }
+    }
+  });
+}
+
+type hospitalEditData = z.infer<typeof hospitalEditSchema>;
+
+export async function hospitalEdit(hospitalId: number, data: hospitalEditData) {
+  return await prisma.hospital.update({
+    where: {
+      id: hospitalId
+    },
+    data: {
+      name: data.name,
+      city: data.city,
+      region: data.region,
+      woreda: data.woreda,
+      zone: data.zone
+    }
+  });
+}
+
+export async function deleteHospitalAdmin(userId: string) {
+  return await prisma.user.delete({
+    where: {
+      id: userId
+    }
+  });
+}
+
+type updateUserData = z.infer<typeof hospitalAdminEditSchema>;
+export async function updateHospitalAdminUser(
+  id: string,
+  data: updateUserData
+) {
+  return await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      username: data.username
     }
   });
 }

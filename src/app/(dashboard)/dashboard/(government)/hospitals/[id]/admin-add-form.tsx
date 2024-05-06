@@ -10,7 +10,7 @@ import { hospitalAdminSchema } from '@/lib/validations/hospital'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { set, z } from 'zod'
+import { z } from 'zod'
 
 type hospitalAdmin = z.infer<typeof hospitalAdminSchema>
 

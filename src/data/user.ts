@@ -23,3 +23,14 @@ export async function getUserByEmail(email: string) {
     }
   });
 }
+
+export async function changeUserPassword(id: string, password: string) {
+  return prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      password
+    }
+  });
+}

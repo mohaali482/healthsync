@@ -163,10 +163,17 @@ export const columns: ColumnDef<Hospital>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <Link href={`/dashboard/hospitals/${row.original.id}`}><DropdownMenuItem>Details</DropdownMenuItem></Link>
-                            <DropdownMenuItem>Edit</DropdownMenuItem>
+
+                            <Link href={`/dashboard/hospitals/${row.original.id}`}>
+                                <DropdownMenuItem className="cursor-pointer">Details</DropdownMenuItem>
+                            </Link>
+
+                            <Link href={`/dashboard/hospitals/edit/${row.original.id}`}>
+                                <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
+                            </Link>
+
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
                                 <DialogTrigger>Delete</DialogTrigger>
                             </DropdownMenuItem>
                         </DropdownMenuContent>

@@ -1,5 +1,8 @@
 import prisma from '@/lib/prisma';
-import { hospitalSchema } from '@/lib/validations/hospital';
+import {
+  hospitalAdminSchema,
+  hospitalSchema
+} from '@/lib/validations/hospital';
 import { z } from 'zod';
 
 export async function getAllHospitals() {
@@ -57,4 +60,29 @@ export async function getHospitalById(id: number) {
     console.log(e);
     return null;
   }
+}
+
+type hospitalAdmin = z.infer<typeof hospitalAdminSchema>;
+
+export async function createAdminForHospital(
+  hospitalId: number,
+  admin: hospitalAdmin
+) {
+  return await prisma.hospital.update({
+    where: {
+      id: hospitalId
+    },
+    data: {
+      admins: {
+        create: {
+          first_name: admin.first_name,
+          last_name: admin.last_name,
+          username: admin.username,
+          email: admin.email,
+          password: admin.password,
+          role: 'HOSPITAL_ADMIN'
+        }
+      }
+    }
+  });
 }

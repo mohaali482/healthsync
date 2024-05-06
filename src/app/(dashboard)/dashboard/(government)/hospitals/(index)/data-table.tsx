@@ -21,9 +21,7 @@ import {
 } from "@/components/ui/table"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -33,7 +31,8 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
     columns,
     data,
-}: DataTableProps<TData, TValue>) {
+    actionButton,
+}: { actionButton: React.ReactNode | null } & DataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState<SortingState>([])
 
@@ -63,7 +62,8 @@ export function DataTable<TData, TValue>({
                     className="max-w-sm"
                 />
 
-                <Link className={cn(buttonVariants({ variant: "default" }))} href={"/dashboard/hospitals/add"}>Add</Link>
+                {actionButton}
+
             </div>
 
             <div className="rounded-md border">

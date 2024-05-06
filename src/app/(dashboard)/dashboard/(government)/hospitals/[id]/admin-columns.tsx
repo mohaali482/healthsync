@@ -11,83 +11,67 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { deleteHospitalAction } from "@/app/lib/actions/hospital";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 
-export type Hospital = {
-    id: number;
-    name: String;
-    region: String;
-    city: String;
-    zone: String;
-    woreda: String;
+export type Admin = {
+    id: string;
+    first_name: String;
+    last_name: String;
+    username: String;
+    email: String;
     createdAt: Date;
 }
 
-export const columns: ColumnDef<Hospital>[] = [
+export const columns: ColumnDef<Admin>[] = [
     {
-        accessorKey: "name",
+        accessorKey: "first_name",
         header: ({ column }) => {
             return (
                 <button className="flex p-2 rounded hover:bg-secondary/5"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Name
+                    First Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </button>
             )
         },
     },
     {
-        accessorKey: "region",
+        accessorKey: "last_name",
         header: ({ column }) => {
             return (
                 <button className="flex p-2 rounded hover:bg-secondary/5"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Region
+                    Last Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </button>
             )
         },
     },
     {
-        accessorKey: "city",
+        accessorKey: "username",
 
         header: ({ column }) => {
             return (
                 <button className="flex p-2 rounded hover:bg-secondary/5"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    City
+                    Username
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </button>
             )
         },
     },
     {
-        accessorKey: "zone",
+        accessorKey: "email",
         header: ({ column }) => {
             return (
                 <button className="flex p-2 rounded hover:bg-secondary/5"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Zone
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </button>
-            )
-        },
-    },
-    {
-        accessorKey: "woreda",
-
-        header: ({ column }) => {
-            return (
-                <button className="flex p-2 rounded hover:bg-secondary/5"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Woreda
+                    Email
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </button>
             )
@@ -113,7 +97,7 @@ export const columns: ColumnDef<Hospital>[] = [
         id: "actions",
         cell: ({ row }) => {
             const FormSchema = z.object({
-                hospitalname: z.string().min(1, "Hospital Name is required").includes(row.original.name.toString(), { message: "Must be the name of the hospital you want to delete" })
+                username: z.string().min(1, "Username is required").includes(row.original.username.toString(), { message: "Must be the username of the admin you want to delete" })
             })
 
             type FormValues = z.infer<typeof FormSchema>
@@ -129,8 +113,8 @@ export const columns: ColumnDef<Hospital>[] = [
             async function onSubmit(data: FormValues) {
                 setIsLoading(true)
                 let error: string | undefined
-                if (data.hospitalname === row.original.name) {
-                    error = await deleteHospitalAction({ id: row.original.id })
+                if (data.username === row.original.username) {
+                    // error = await deleteHospitalAction({ id: row.original.id })
                 }
 
                 setIsLoading(false)
@@ -175,30 +159,30 @@ export const columns: ColumnDef<Hospital>[] = [
                         <DialogHeader>
                             <DialogTitle>Are you absolutely sure?</DialogTitle>
                             <DialogDescription className="text-current">
-                                Insert the following if you are sure: <p className="font-bold">{row.original.name}</p>
+                                Insert the following if you are sure: <p className="font-bold">{row.original.username}</p>
                             </DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid gap-1">
-                                <Label className="sr-only" htmlFor="hospitalname">
+                                <Label className="sr-only" htmlFor="username">
                                     Hospital Name
                                 </Label>
                                 <Input
-                                    id="hospitalname"
-                                    placeholder={row.original.name.toString()}
-                                    type="hospitalname"
+                                    id="username"
+                                    placeholder={row.original.username.toString()}
+                                    type="username"
                                     autoCapitalize="none"
-                                    autoComplete="hospitalname"
+                                    autoComplete="username"
                                     autoCorrect="off"
                                     disabled={isLoading}
-                                    {...register("hospitalname")}
+                                    {...register("username")}
                                 />
-                                {errors?.hospitalname && (
+                                {errors?.username && (
                                     <p className="px-1 text-xs text-red-600">
-                                        {errors.hospitalname.message}
+                                        {errors.username.message}
                                     </p>
                                 )}
-                                <Button variant="destructive" type="submit" disabled={(watch().hospitalname !== row.original.name) || isLoading}>
+                                <Button variant="destructive" type="submit" disabled={(watch().username !== row.original.username) || isLoading}>
                                     {isLoading ? "Deleting..." : "Delete"}
                                 </Button>
                             </div>

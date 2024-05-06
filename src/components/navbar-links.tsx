@@ -11,14 +11,13 @@ export const links: {
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart />, activeLinks: ["/dashboard/analysis"] },
     { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard/equipments"] },
-    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard/resources"] },
-    { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard/reports"] },
+    { link: '/dashboard/equipment-types', linkName: 'Equipment Types', icon: <Syringe />, activeLinks: ["/dashboard/equipment-types"] },
     { link: '/dashboard/users', linkName: 'Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
   ],
   GOVERNMENT: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart />, activeLinks: ['/dashboard/analysis'] },
+    { link: '/dashboard/equipment-types', linkName: 'Equipment Types', icon: <Syringe />, activeLinks: ["/dashboard/equipment-types"] },
     { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] }
   ],
   HOSPITAL_ADMIN: [

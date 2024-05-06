@@ -36,3 +36,25 @@ export async function createHospital(data: CreateHospital) {
     }
   });
 }
+
+export async function getHospitalById(id: number) {
+  try {
+    return await prisma.hospital.findUnique({
+      where: {
+        id
+      },
+      include: {
+        admins: true,
+        medicalEquipmentStore: {
+          include: {
+            medicalEquipment: true
+          }
+        },
+        assets: true
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}

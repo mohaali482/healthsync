@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div>
             </CardContent>
             <CardFooter>
-                <Link href={`../edit/${hospital.id}`} className={cn(buttonVariants({ variant: "default" }), "ml-auto")}>Edit</Link>
+                <Link href={`./edit/${hospital.id}`} className={cn(buttonVariants({ variant: "default" }), "ml-auto")}>Edit</Link>
             </CardFooter>
         </Card>
     )

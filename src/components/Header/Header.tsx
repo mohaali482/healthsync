@@ -1,12 +1,15 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "../ui/button"
 import { PanelLeft, Stethoscope, UserIcon } from "lucide-react"
-import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import DefaultBreadcrumb from "../DefaultBreadcrumb"
 import { logout } from "@/app/lib/actions"
 import HeaderLink from "./HeaderLink"
+import ThemeButton from "../ThemeButton"
+import { useEffect } from "react"
 
 function Header({ links }: {
     links: {
@@ -16,6 +19,16 @@ function Header({ links }: {
         activeLinks: string[];
     }[]
 }) {
+
+    useEffect(() => {
+        if (localStorage.getItem('theme') === "dark") {
+            document.body.classList.add('dark')
+            localStorage.setItem('theme', 'dark')
+        } else {
+            document.body.classList.remove('dark')
+            localStorage.setItem('theme', 'light')
+        }
+    }, [])
 
     return (
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 md:static md:h-auto md:border-0 md:bg-transparent md:px-6">
@@ -56,8 +69,7 @@ function Header({ links }: {
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Settings</DropdownMenuItem>
-                        <DropdownMenuItem>Support</DropdownMenuItem>
+                        <ThemeButton />
                         <DropdownMenuSeparator />
                         <form action={async () => await logout()}>
                             <DropdownMenuItem>

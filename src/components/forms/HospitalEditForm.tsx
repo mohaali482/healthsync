@@ -162,7 +162,7 @@ function HospitalEditForm({ hospitalId, hospitalData }: { hospitalId: number, ho
                         {isLoading && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Add
+                        Edit
                     </button>
                 </CardFooter>
             </Card>

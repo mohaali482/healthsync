@@ -1,6 +1,6 @@
 import { getAllHospitals } from "@/data/hospitals"
 import { columns } from "./columns"
-import { DataTable } from "./data-table"
+import { DataTable } from "@/components/data-table"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"

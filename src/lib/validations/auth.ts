@@ -14,3 +14,32 @@ export const changePasswordSchema = z
     message: 'Passwords must match.',
     path: ['confirm_password']
   });
+
+export const roles = ['GOVERNMENT', 'SUPER_USER'] as const;
+
+export const userEditSchema = z.object({
+  first_name: z.string().min(1, 'First name is required'),
+  last_name: z.string().min(1, 'Last name is required'),
+  username: z.string().min(1, 'Username is required'),
+  email: z.string().email(),
+  role: z.enum(roles, {
+    required_error: 'Select a role from the roles listed'
+  })
+});
+
+export const userAddSchema = z
+  .object({
+    first_name: z.string().min(1, 'First name is required'),
+    last_name: z.string().min(1, 'Last name is required'),
+    username: z.string().min(1, 'Username is required'),
+    password: z.string().min(1, 'Password is required'),
+    confirm_password: z.string().min(1, 'Confirm password'),
+    email: z.string().email(),
+    role: z.enum(roles, {
+      required_error: 'Select a role from the roles listed'
+    })
+  })
+  .refine(data => data.password === data.confirm_password, {
+    message: 'Passwords must match.',
+    path: ['confirm_password']
+  });

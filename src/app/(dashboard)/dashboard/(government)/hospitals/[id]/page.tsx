@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { getHospitalById } from "@/data/hospitals";
-import { DataTable } from "../(index)/data-table";
+import { DataTable } from "@/components/data-table";
 import { columns as medicalEquipmentsColumns } from "./medical-equipments-columns";
 import { columns as assetsColumn } from "./assets-column";
 import { buttonVariants } from "@/components/ui/button";

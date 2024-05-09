@@ -170,7 +170,7 @@ function HospitalAddForm() {
                             <Label className='sr-only' htmlFor="first_name">
                                 Name
                             </Label>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col w-full">
                                 <Input
                                     id="first_name"
                                     placeholder="First Name"
@@ -186,6 +186,8 @@ function HospitalAddForm() {
                                         {errors.first_name.message}
                                     </p>
                                 )}
+                            </div>
+                            <div className="flex flex-col w-full">
                                 <Input
                                     id="last_name"
                                     placeholder="Last Name"

@@ -8,7 +8,7 @@ import {
 import { z } from 'zod';
 
 export async function getAllHospitals() {
-  return await prisma.hospital.findMany();
+  return await prisma.hospital.findMany({ orderBy: { id: 'asc' } });
 }
 
 export async function deleteHospital(id: number) {

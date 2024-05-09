@@ -13,11 +13,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from '../ui/separator'
 import { createHospitalAction } from '@/app/lib/actions/hospital'
 import { toast } from '../ui/use-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type HospitalFormData = z.infer<typeof hospitalSchema>
 
 function HospitalAddForm() {
-    const { register, handleSubmit, formState: { errors }, setError, reset } = useForm<HospitalFormData>()
+    const { register, handleSubmit, formState: { errors }, setError, reset } = useForm<HospitalFormData>({
+        resolver: zodResolver(hospitalSchema)
+    })
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data: HospitalFormData) => {

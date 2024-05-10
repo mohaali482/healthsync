@@ -70,8 +70,9 @@ model HumanResource {
 }
 
 model MedicalEquipment {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
 
   medicalEquipmentStore MedicalEquipmentStore[]
 
@@ -85,6 +86,7 @@ model MedicalEquipmentStore {
   medicalEquipment MedicalEquipment @relation(fields: [medicalEquipmentId], references: [id])
   quantity         Int              @default(0)
   inStock          Boolean          @default(false)
+  thresholdLevel   Int              @default(0)
 
   hospitalId         Int
   medicalEquipmentId Int

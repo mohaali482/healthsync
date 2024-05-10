@@ -277,93 +277,95 @@ export const columns: ColumnDef<Admin>[] = [
                                         Edit the fields you want to change
                                     </DialogDescription>
                                 </DialogHeader>
-                                <form onSubmit={handleSubmitEdit(onSubmitEdit)}>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="w-full flex justify-between items-center gap-2">
-                                            <Label className='sr-only' htmlFor="first_name">
-                                                Name
-                                            </Label>
-                                            <div className="flex gap-2 w-full">
+                                <div className="grid gap-4 py-4">
+                                    <form onSubmit={handleSubmitEdit(onSubmitEdit)}>
+                                        <div className="flex flex-col gap-2">
+                                            <div className="w-full flex justify-between items-center gap-2">
+                                                <Label className='sr-only' htmlFor="first_name">
+                                                    Name
+                                                </Label>
+                                                <div className="flex gap-2 w-full">
+                                                    <Input
+                                                        id="first_name"
+                                                        placeholder="First Name"
+                                                        type="first_name"
+                                                        autoCapitalize="none"
+                                                        autoComplete="first_name"
+                                                        autoCorrect="off"
+                                                        disabled={isLoading}
+                                                        {...registerEdit("first_name")}
+                                                    />
+                                                    {errorsEdit?.first_name && (
+                                                        <p className="px-1 text-xs text-red-600">
+                                                            {errorsEdit.first_name.message}
+                                                        </p>
+                                                    )}
+                                                    <Input
+                                                        id="last_name"
+                                                        placeholder="Last Name"
+                                                        type="last_name"
+                                                        autoCapitalize="none"
+                                                        autoComplete="last_name"
+                                                        autoCorrect="off"
+                                                        disabled={isLoading}
+                                                        {...registerEdit("last_name")}
+                                                    />
+                                                    {errorsEdit?.last_name && (
+                                                        <p className="px-1 text-xs text-red-600">
+                                                            {errorsEdit.last_name.message}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="w-full">
+                                                <Label className="sr-only" htmlFor="username">
+                                                    Username
+                                                </Label>
                                                 <Input
-                                                    id="first_name"
-                                                    placeholder="First Name"
-                                                    type="first_name"
+                                                    id="username"
+                                                    placeholder="Username"
+                                                    type="username"
                                                     autoCapitalize="none"
-                                                    autoComplete="first_name"
+                                                    autoComplete="username"
                                                     autoCorrect="off"
                                                     disabled={isLoading}
-                                                    {...registerEdit("first_name")}
+                                                    {...registerEdit("username")}
                                                 />
-                                                {errorsEdit?.first_name && (
+                                                {errorsEdit?.username && (
                                                     <p className="px-1 text-xs text-red-600">
-                                                        {errorsEdit.first_name.message}
-                                                    </p>
-                                                )}
-                                                <Input
-                                                    id="last_name"
-                                                    placeholder="Last Name"
-                                                    type="last_name"
-                                                    autoCapitalize="none"
-                                                    autoComplete="last_name"
-                                                    autoCorrect="off"
-                                                    disabled={isLoading}
-                                                    {...registerEdit("last_name")}
-                                                />
-                                                {errorsEdit?.last_name && (
-                                                    <p className="px-1 text-xs text-red-600">
-                                                        {errorsEdit.last_name.message}
+                                                        {errorsEdit.username.message}
                                                     </p>
                                                 )}
                                             </div>
+                                            <div className="w-full">
+                                                <Label className="sr-only" htmlFor="email">
+                                                    Email
+                                                </Label>
+                                                <Input
+                                                    id="email"
+                                                    placeholder="Email"
+                                                    type="email"
+                                                    autoCapitalize="none"
+                                                    autoComplete="email"
+                                                    autoCorrect="off"
+                                                    disabled={isLoading}
+                                                    {...registerEdit("email")}
+                                                />
+                                                {errorsEdit?.email && (
+                                                    <p className="px-1 text-xs text-red-600">
+                                                        {errorsEdit.email.message}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <Button disabled={isLoading}>
+                                                {isLoading && (
+                                                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                                )}
+                                                Update
+                                            </Button>
                                         </div>
-                                        <div className="w-full">
-                                            <Label className="sr-only" htmlFor="username">
-                                                Username
-                                            </Label>
-                                            <Input
-                                                id="username"
-                                                placeholder="Username"
-                                                type="username"
-                                                autoCapitalize="none"
-                                                autoComplete="username"
-                                                autoCorrect="off"
-                                                disabled={isLoading}
-                                                {...registerEdit("username")}
-                                            />
-                                            {errorsEdit?.username && (
-                                                <p className="px-1 text-xs text-red-600">
-                                                    {errorsEdit.username.message}
-                                                </p>
-                                            )}
-                                        </div>
-                                        <div className="w-full">
-                                            <Label className="sr-only" htmlFor="email">
-                                                Email
-                                            </Label>
-                                            <Input
-                                                id="email"
-                                                placeholder="Email"
-                                                type="email"
-                                                autoCapitalize="none"
-                                                autoComplete="email"
-                                                autoCorrect="off"
-                                                disabled={isLoading}
-                                                {...registerEdit("email")}
-                                            />
-                                            {errorsEdit?.email && (
-                                                <p className="px-1 text-xs text-red-600">
-                                                    {errorsEdit.email.message}
-                                                </p>
-                                            )}
-                                        </div>
-                                        <Button disabled={isLoading}>
-                                            {isLoading && (
-                                                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                                            )}
-                                            Update
-                                        </Button>
-                                    </div>
-                                </form >
+                                    </form >
+                                </div>
                             </DialogContent>
                         )}
 

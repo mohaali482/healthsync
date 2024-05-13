@@ -22,7 +22,7 @@ export const links: {
   ],
   HOSPITAL_ADMIN: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/equipment', linkName: 'Equipment', icon: <Syringe />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/staffs', linkName: 'Staffs', icon: <Users />, activeLinks: ["/dashboard/users"] },
@@ -30,7 +30,7 @@ export const links: {
   ],
   DATA_ENCODER: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
-    { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/equipment', linkName: 'Equipment', icon: <Syringe />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
   ],

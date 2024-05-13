@@ -38,8 +38,9 @@ function Sidebar({ links, open, setOpen }: {
                         }
                     </div>
                 </div>
-
-                {links.map((link, index) => <SidebarLink key={index} open={open} {...link} />)}
+                <div className="flex flex-col gap-2 w-full">
+                    {links.map((link, index) => <SidebarLink key={index} open={open} {...link} />)}
+                </div>
             </nav>
         </aside>
     )

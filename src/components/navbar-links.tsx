@@ -1,4 +1,4 @@
-import { Briefcase, Home, Hospital, LineChart, NotebookText, Syringe, Users } from "lucide-react";
+import { Briefcase, Home, Hospital, Keyboard, LineChart, NotebookText, Syringe, Users } from "lucide-react";
 
 export const links: {
   SUPER_USER: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]
@@ -25,7 +25,8 @@ export const links: {
     { link: '/dashboard/equipments', linkName: 'Equipments', icon: <Syringe />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
-    { link: '/dashboard/users', linkName: 'Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
+    { link: '/dashboard/staffs', linkName: 'Staffs', icon: <Users />, activeLinks: ["/dashboard/users"] },
+    { link: '/dashboard/data-encoders', linkName: 'Data Encoders', icon: <Keyboard />, activeLinks: ["/dashboard/data-encoders"] },
   ],
   DATA_ENCODER: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },

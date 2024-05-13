@@ -48,7 +48,6 @@ export default function Table({ data }: { data: MedicalEquipment[] }) {
     return (
         <Dialog open={isDialogOpen} defaultOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <div className="container mx-auto py-10">
-                <h1 className="text-xl font-semibold">List of all equipments</h1>
                 <DataTable columns={columns} data={data} actionButton={
                     <DialogTrigger className={cn(buttonVariants({ variant: "default" }))}>
                         Add

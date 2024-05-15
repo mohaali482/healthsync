@@ -85,7 +85,6 @@ model MedicalEquipmentStore {
   hospital         Hospital         @relation(fields: [hospitalId], references: [id])
   medicalEquipment MedicalEquipment @relation(fields: [medicalEquipmentId], references: [id])
   quantity         Int              @default(0)
-  inStock          Boolean          @default(false)
   thresholdLevel   Int              @default(0)
 
   hospitalId         Int

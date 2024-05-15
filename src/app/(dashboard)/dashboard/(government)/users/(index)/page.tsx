@@ -7,7 +7,7 @@ import { getSuperAndGovernmentUsers } from "@/data/user"
 
 export default async function Page() {
     const data = await getSuperAndGovernmentUsers()
-    await new Promise((resolve) => setTimeout(resolve, 100000))
+    // await new Promise((resolve) => setTimeout(resolve, 100000))
 
     return (
         <div className="container mx-auto py-10">

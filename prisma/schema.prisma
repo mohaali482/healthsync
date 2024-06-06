@@ -113,10 +113,11 @@ model Asset {
 }
 
 model Disease {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   description String
-  Report      Report[]
+
+  reports Report[]
 }
 
 model Report {

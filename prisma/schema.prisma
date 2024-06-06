@@ -110,3 +110,9 @@ model Asset {
 
   hospitalId Int
 }
+
+model Disease {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+}

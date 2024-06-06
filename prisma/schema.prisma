@@ -120,9 +120,10 @@ model Disease {
 }
 
 model Report {
-  id             Int @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   confirmedCase  Int
   confirmedDeath Int
+  reportDate     DateTime
 
   disease    Disease  @relation(fields: [diseaseId], references: [id])
   hospital   Hospital @relation(fields: [hospitalId], references: [id])

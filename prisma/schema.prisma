@@ -128,4 +128,6 @@ model Report {
   hospital   Hospital @relation(fields: [hospitalId], references: [id])
   diseaseId  Int
   hospitalId Int
+
+  createdAt DateTime @default(now())
 }

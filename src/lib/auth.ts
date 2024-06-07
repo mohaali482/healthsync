@@ -13,7 +13,7 @@ async function getUser(username: string, password: string) {
       username
     }
   });
-  if (!user) return null;
+  if (!user || !user.isActive) return null;
   const passwordsMatch = await bcrypt.compare(password, user.password);
 
   if (!passwordsMatch) return null;

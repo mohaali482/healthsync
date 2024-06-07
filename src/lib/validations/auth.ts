@@ -22,6 +22,7 @@ export const userEditSchema = z.object({
   last_name: z.string().min(1, 'Last name is required'),
   username: z.string().min(1, 'Username is required'),
   email: z.string().email(),
+  isActive: z.boolean(),
   role: z.enum(roles, {
     required_error: 'Select a role from the roles listed'
   })

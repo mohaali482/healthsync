@@ -16,6 +16,7 @@ import { Icons } from "@/components/icons";
 import { changeUserPasswordAction, deleteUserAction, editUserAction } from "@/app/lib/actions/auth";
 import { changePasswordSchema, roles, userEditSchema } from "@/lib/validations/auth";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 const Role: {
     USER: "USER",
@@ -39,6 +40,7 @@ export type User = {
     first_name: String
     last_name: String
     role: Role
+    isActive: boolean
     hospitalId: number | null
     createdAt: Date
 }
@@ -106,6 +108,24 @@ export const columns: ColumnDef<User>[] = [
             }
 
             return role[0].toUpperCase() + role.slice(1)
+        }
+    },
+    {
+        accessorKey: "isActive",
+        header: ({ column }) => {
+            return (
+                <button className="flex p-2 rounded hover:bg-secondary/5"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Is Active
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </button>
+            )
+        },
+        cell: ({ row }) => {
+            return (
+                <Label className={!row.original.isActive ? "text-destructive" : "text-green-500"}>{row.original.isActive ? "Active" : "Inactive"}</Label>
+            )
         }
     },
     {
@@ -181,6 +201,7 @@ export const columns: ColumnDef<User>[] = [
                     first_name: row.original.first_name.toString(),
                     last_name: row.original.last_name.toString(),
                     email: row.original.email.toString(),
+                    isActive: row.original.isActive,
                     username: row.original.username.toString(),
                     role: row.original.role as any
                 }
@@ -247,20 +268,22 @@ export const columns: ColumnDef<User>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <DialogTrigger onClick={() => setOpenedDialog("Edit")}>
+                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Edit")}>
+                                <DropdownMenuItem className="cursor-pointer">
                                     Edit
-                                </DialogTrigger>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <DialogTrigger onClick={() => setOpenedDialog("Change Password")}>
+                                </DropdownMenuItem>
+                            </DialogTrigger>
+                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Change Password")}>
+                                <DropdownMenuItem className="cursor-pointer">
                                     Change Password
-                                </DialogTrigger>
-                            </DropdownMenuItem>
+                                </DropdownMenuItem>
+                            </DialogTrigger>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <DialogTrigger onClick={() => setOpenedDialog("Delete")}>Delete</DialogTrigger>
-                            </DropdownMenuItem>
+                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Delete")}>
+                                <DropdownMenuItem className="cursor-pointer">
+                                    Delete
+                                </DropdownMenuItem>
+                            </DialogTrigger>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     {
@@ -384,6 +407,22 @@ export const columns: ColumnDef<User>[] = [
                                             {errorsEdit?.email && (
                                                 <p className="px-1 text-xs text-red-600">
                                                     {errorsEdit.email.message}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="w-full flex items-center gap-2">
+                                            <Label htmlFor="isActive">
+                                                Active
+                                            </Label>
+                                            <Switch
+                                                id="isActive"
+                                                disabled={isLoading}
+                                                defaultChecked={getEditValues().isActive}
+                                                onCheckedChange={(value) => setEditValue("isActive", value)}
+                                            />
+                                            {errorsEdit?.isActive && (
+                                                <p className="px-1 text-xs text-red-600">
+                                                    {errorsEdit.isActive.message}
                                                 </p>
                                             )}
                                         </div>

@@ -103,12 +103,13 @@ enum AssetType {
 }
 
 model Asset {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  assetType   AssetType
+  quantity    Int       @default(0)
 
-  hospital  Hospital  @relation(fields: [hospitalId], references: [id])
-  assetType AssetType
-  quantity  Int       @default(0)
+  hospital Hospital @relation(fields: [hospitalId], references: [id])
 
   hospitalId Int
 }

@@ -1,13 +1,20 @@
 import 'next-auth/jwt';
 import type { User } from 'next-auth';
 
-type Role = [
-  'USER',
-  'GOVERNMENT',
-  'HOSPITAL_ADMIN',
-  'DATA_ENCODER',
-  'SUPER_USER'
-];
+const Role: {
+  USER: 'USER';
+  GOVERNMENT: 'GOVERNMENT';
+  HOSPITAL_ADMIN: 'HOSPITAL_ADMIN';
+  DATA_ENCODER: 'DATA_ENCODER';
+  SUPER_USER: 'SUPER_USER';
+} = {
+  USER: 'USER',
+  GOVERNMENT: 'GOVERNMENT',
+  HOSPITAL_ADMIN: 'HOSPITAL_ADMIN',
+  DATA_ENCODER: 'DATA_ENCODER',
+  SUPER_USER: 'SUPER_USER'
+};
+type Role = (typeof Role)[keyof typeof Role];
 
 declare module 'next-auth/jwt' {
   interface JWT {

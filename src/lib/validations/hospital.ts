@@ -11,7 +11,7 @@ export const hospitalSchema = z.object({
   last_name: z.string().min(1, 'Last name is required'),
   username: z.string().min(1, 'Username is required'),
   email: z.string().email(),
-  password: z.string().min(1, 'Password is required')
+  password: z.string().min(4, 'Password is required. Minimum length 4.')
 });
 
 export const hospitalAdminSchema = z.object({

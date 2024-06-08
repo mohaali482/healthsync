@@ -51,6 +51,11 @@ export async function createHospitalAction(data: CreateHospital) {
       return { key: 'email', message: 'User with this email already exists' };
     }
 
+    data.password = await bcrypt.hash(
+      data.password,
+      parseInt(process.env.HASH_ROUNDS!)
+    );
+
     await createHospital(data);
     revalidatePath('/dashboard/hospitals');
   } catch (e) {

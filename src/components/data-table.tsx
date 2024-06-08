@@ -22,16 +22,19 @@ import {
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Disease } from "@/app/(dashboard)/dashboard/(government)/diseases/columns"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    diseases?: Disease[];
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
     actionButton,
+    diseases,
 }: { actionButton: React.ReactNode | null } & DataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState<SortingState>([])
@@ -44,6 +47,10 @@ export function DataTable<TData, TValue>({
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+
+        meta: {
+            diseases
+        },
 
         state: {
             globalFilter,

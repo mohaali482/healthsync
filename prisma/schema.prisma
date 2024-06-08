@@ -52,9 +52,10 @@ model Hospital {
   medicalEquipmentStore MedicalEquipmentStore[]
   assets                Asset[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Report    Report[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Report        Report[]
+  HumanResource HumanResource[]
 }
 
 enum HumanResourceType {
@@ -67,8 +68,11 @@ model HumanResource {
   name String
   type HumanResourceType
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  hospital Hospital @relation(fields: [hospitalId], references: [id])
+
+  hospitalId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model MedicalEquipment {

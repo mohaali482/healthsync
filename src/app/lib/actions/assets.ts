@@ -14,12 +14,14 @@ import { logout } from '../actions';
 
 type assetFormType = z.infer<typeof assetForm>;
 
+const ALLOWED_ROLES = ['HOSPITAL_ADMIN', 'DATA_ENCODER'];
+
 export async function createResourceAction(data: assetFormType) {
   try {
     const user = await auth();
     if (
       !user ||
-      user.user.role !== 'HOSPITAL_ADMIN' ||
+      !ALLOWED_ROLES.includes(user.user.role) ||
       user.user.hospitalId === null
     ) {
       await logout();
@@ -39,7 +41,7 @@ export async function updateResourceAction(id: number, data: assetFormType) {
     const user = await auth();
     if (
       !user ||
-      user.user.role !== 'HOSPITAL_ADMIN' ||
+      !ALLOWED_ROLES.includes(user.user.role) ||
       user.user.hospitalId === null
     ) {
       await logout();
@@ -64,7 +66,7 @@ export async function deleteResourceAction(id: number) {
     const user = await auth();
     if (
       !user ||
-      user.user.role !== 'HOSPITAL_ADMIN' ||
+      !ALLOWED_ROLES.includes(user.user.role) ||
       user.user.hospitalId === null
     ) {
       await logout();

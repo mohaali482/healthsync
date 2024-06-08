@@ -86,8 +86,8 @@ export const columns: ColumnDef<Report>[] = [
                 </button>
             )
         },
-        cell: ({ getValue }) => {
-            return new Date(getValue()).toLocaleDateString()
+        cell: ({ row }) => {
+            return new Date(row.original.reportDate).toLocaleDateString()
         }
     },
     {

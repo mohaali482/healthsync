@@ -149,7 +149,7 @@ export const columns: ColumnDef<Resource>[] = [
                     setIsDialogOpen(false)
                     return toast({
                         title: "Success",
-                        description: "Resource deleted successfully.",
+                        description: "Resource updated successfully.",
                         variant: "default",
                     })
                 }

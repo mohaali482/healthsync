@@ -4,19 +4,22 @@ import {
   createResource,
   deleteResource,
   getResource,
-  updateResource
+  updateResource,
+  updateResourceStatus
 } from '@/data/assets';
 import { auth } from '@/lib/auth';
-import { assetForm } from '@/lib/validations/assets';
+import { assetAddForm, assetForm } from '@/lib/validations/assets';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { logout } from '../actions';
+
+type assetAddFormType = z.infer<typeof assetAddForm>;
 
 type assetFormType = z.infer<typeof assetForm>;
 
 const ALLOWED_ROLES = ['HOSPITAL_ADMIN', 'DATA_ENCODER'];
 
-export async function createResourceAction(data: assetFormType) {
+export async function createResourceAction(data: assetAddFormType) {
   try {
     const user = await auth();
     if (
@@ -54,7 +57,7 @@ export async function updateResourceAction(id: number, data: assetFormType) {
     }
 
     await updateResource(id, data);
-    revalidatePath('/dashboard/resource');
+    revalidatePath('/dashboard/resources');
   } catch (e) {
     console.log('Error happened while trying to update resource\n[error]', e);
     return 'Something went wrong';
@@ -79,9 +82,25 @@ export async function deleteResourceAction(id: number) {
     }
 
     await deleteResource(id);
-    revalidatePath('/dashboard/resource');
+    revalidatePath('/dashboard/resources');
   } catch (e) {
     console.log('Error happened while trying to delete resource\n[error]', e);
+    return 'Something went wrong';
+  }
+}
+
+export async function updateResourceStatusAction(
+  id: number,
+  isActive: boolean
+) {
+  try {
+    await updateResourceStatus(id, isActive);
+    revalidatePath('/dashboard/resources');
+  } catch (e) {
+    console.log(
+      'Error happened while trying to change status of resource\n[error]',
+      e
+    );
     return 'Something went wrong';
   }
 }

@@ -1,4 +1,6 @@
 import prisma from '@/lib/prisma';
+import { reportsForm } from '@/lib/validations/reports';
+import { z } from 'zod';
 
 export function getAllReports() {
   return prisma.report.findMany({
@@ -43,6 +45,67 @@ export function getYearReports(diseaseId: number, year: number) {
           }
         }
       }
+    }
+  });
+}
+
+type reportFormType = z.infer<typeof reportsForm>;
+
+export function getReports(hospitalId: number) {
+  return prisma.report.findMany({
+    where: {
+      hospitalId
+    },
+    include: {
+      disease: true
+    }
+  });
+}
+
+export function getReportWithDiseaseAndReportDate(
+  hospitalId: number,
+  diseaseId: number,
+  reportDate: Date
+) {
+  return prisma.report.findFirst({
+    where: {
+      hospitalId,
+      diseaseId,
+      reportDate
+    }
+  });
+}
+
+export function getReport(id: number) {
+  return prisma.report.findFirst({
+    where: {
+      id
+    }
+  });
+}
+
+export function createReport(data: reportFormType, hospitalId: number) {
+  return prisma.report.create({
+    data: {
+      ...data,
+      hospitalId
+    }
+  });
+}
+
+export function updateReport(id: number, data: reportFormType) {
+  return prisma.report.update({
+    where: {
+      id
+    },
+    data
+  });
+}
+
+export function deleteReport(id: number) {
+  return prisma.report.delete({
+    where: {
+      id
     }
   });
 }

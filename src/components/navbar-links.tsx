@@ -32,7 +32,7 @@ export const links: {
   DATA_ENCODER: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/equipment', linkName: 'Equipment', icon: <Syringe />, activeLinks: ["/dashboard"] },
-    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard"] },
+    { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard/resources"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard"] },
   ],
 };

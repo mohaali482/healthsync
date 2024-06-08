@@ -3,10 +3,15 @@ import Table from "./table";
 import { auth } from "@/lib/auth";
 import { logout } from "@/app/lib/actions";
 
+const ALLOWED_ROLES = [
+    "HOSPITAL_ADMIN",
+    "DATA_ENCODER"
+]
+
 export default async function Page() {
     const user = await auth()
     if (!user ||
-        user.user.role !== "HOSPITAL_ADMIN" ||
+        !ALLOWED_ROLES.includes(user.user.role) ||
         user.user.hospitalId === null
     ) {
         return await logout()

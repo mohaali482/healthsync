@@ -15,6 +15,17 @@ export const changePasswordSchema = z
     path: ['confirm_password']
   });
 
+export const changeSelfPasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, 'Old password is required'),
+    newPassword: z.string().min(1, 'Password is required'),
+    confirmPassword: z.string().min(1, 'Confirm password is required')
+  })
+  .refine(data => data.newPassword === data.confirmPassword, {
+    message: 'Passwords must match.',
+    path: ['confirmPassword']
+  });
+
 export const roles = ['SUPER_USER'] as const;
 
 export const userEditSchema = z.object({

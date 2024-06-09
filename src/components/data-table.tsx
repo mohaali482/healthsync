@@ -7,6 +7,7 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    RowData,
     SortingState,
     useReactTable,
 } from "@tanstack/react-table"
@@ -24,10 +25,18 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Disease } from "@/app/(dashboard)/dashboard/(government)/diseases/columns"
 
+
+declare module '@tanstack/react-table' {
+    interface TableMeta<TData extends RowData> {
+        diseases: Disease[] | undefined;
+        userId: string | undefined;
+    }
+}
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     diseases?: Disease[];
+    userId?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -35,6 +44,7 @@ export function DataTable<TData, TValue>({
     data,
     actionButton,
     diseases,
+    userId,
 }: { actionButton: React.ReactNode | null } & DataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState<SortingState>([])
@@ -49,7 +59,8 @@ export function DataTable<TData, TValue>({
         getPaginationRowModel: getPaginationRowModel(),
 
         meta: {
-            diseases
+            diseases,
+            userId
         },
 
         state: {

@@ -18,7 +18,7 @@ type Role = (typeof Role)[keyof typeof Role];
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    id: number;
+    id: string;
     name: string;
     username: string;
     hospitalId: number | null;

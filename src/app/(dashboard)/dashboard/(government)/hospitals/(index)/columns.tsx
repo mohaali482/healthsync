@@ -114,7 +114,7 @@ export const columns: ColumnDef<Hospital>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const FormSchema = z.object({
                 hospitalname: z.string().min(1, "Hospital Name is required").includes(row.original.name.toString(), { message: "Must be the name of the hospital you want to delete" })
             })

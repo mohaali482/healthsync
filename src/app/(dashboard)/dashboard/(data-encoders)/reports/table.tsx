@@ -127,6 +127,7 @@ export default function Table({ data, diseases }: { data: Report[], diseases: Di
                             id="reportDate"
                             placeholder="Report Date"
                             type="date"
+                            max={new Date().toISOString().substring(0, 10)}
                             disabled={isLoading}
                             {...register("reportDate")}
                         />

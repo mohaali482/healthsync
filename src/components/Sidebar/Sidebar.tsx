@@ -28,14 +28,16 @@ function Sidebar({ links, open, setOpen }: {
                         HealthSync
                     </Link>
                     <div
-                        className='absolute right-[-20px] flex items-center justify-center h-10 w-10 bg-primary text-primary-foreground rounded-full cursor-pointer'
+                        className='absolute right-[-20px] h-10 w-10 bg-primary text-primary-foreground rounded-full cursor-pointer'
                         onClick={() => setOpen(!open)}
                     >
-                        {open ?
-                            <PanelLeftClose />
-                            :
-                            <PanelLeftOpen />
-                        }
+                        <div className='w-full h-full flex items-center justify-center'>
+                            {open ?
+                                <PanelLeftClose />
+                                :
+                                <PanelLeftOpen />
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 w-full">

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
@@ -13,10 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { Icons } from "@/components/icons";
-import { equipmentForm } from "@/lib/validations/medicalEquipments";
-import { deleteMedicalEquipmentStoreAction, updateMedicalEquipmentStoreAction } from "@/app/lib/actions/medicalEquipmentStore";
-import { medicalEquipmentStoreEditForm, medicalEquipmentStoreForm } from "@/lib/validations/medicalEquipmentStore";
-import { Switch } from "@/components/ui/switch";
+import { decrementMedicalEquipmentStoreAction, incrementMedicalEquipmentStoreAction } from "@/app/lib/actions/medicalEquipmentStore";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export type MedicalEquipment = {
@@ -78,7 +75,7 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                                 {row.original.quantity}
                             </span>
                         </TooltipTrigger>
-                        <TooltipContent hidden={row.original.quantity > row.original.thresholdLevel}>
+                        <TooltipContent className="bg-destructive" hidden={row.original.quantity > row.original.thresholdLevel}>
                             <p>Quantity lower than threshold level</p>
                         </TooltipContent>
                     </Tooltip>
@@ -120,24 +117,25 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
         cell: ({ row }) => {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [isLoading, setIsLoading] = useState(false)
-            const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | null>()
+            const [openedDialog, setOpenedDialog] = useState<"Increment" | "Decrement" | null>()
 
-            const DeleteFormSchema = z.object({
-                equipmentName: z.string().min(1, "Medical equipment name is required").includes(row.original.medicalEquipment.name.toString(), { message: "Must be the name of the medical equipment you want to delete" })
-            })
+            const actionForm = z.object({
+                quantity: z.number().min(0, { message: 'This field is required' }),
+            });
 
-            type FormValues = z.infer<typeof DeleteFormSchema>
+            type actionFormType = z.infer<typeof actionForm>
 
-            const { register, handleSubmit, formState: { errors }, watch, reset: resetDeleteForm } = useForm<FormValues>({
-                resolver: zodResolver(DeleteFormSchema),
-            })
-
-            async function onSubmit(data: FormValues) {
-                setIsLoading(true)
-                let error: string | undefined
-                if (data.equipmentName === row.original.medicalEquipment.name) {
-                    error = await deleteMedicalEquipmentStoreAction(row.original.id)
+            const { register, handleSubmit, formState: { errors }, reset } = useForm<actionFormType>({
+                resolver: zodResolver(actionForm),
+                defaultValues: {
+                    quantity: 0,
                 }
+            })
+
+            async function onSubmitIncrement(data: actionFormType) {
+                setIsLoading(true)
+
+                const error = await incrementMedicalEquipmentStoreAction(row.original.id, data.quantity)
 
                 setIsLoading(false)
 
@@ -148,31 +146,19 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                     })
                 } else {
                     setIsDialogOpen(false)
-                    resetDeleteForm()
+                    reset()
                     return toast({
                         title: "Success",
-                        description: "Equipment deleted successfully.",
+                        description: "Equipment incremented successfully.",
                         variant: "default",
                     })
                 }
             }
 
-            type medicalEquipmentStoreFormType = z.infer<typeof medicalEquipmentStoreEditForm>
-
-            const { register: registerEdit, handleSubmit: handleSubmitEdit, formState: { errors: errorsEdit }, setValue: setEditValue } = useForm<medicalEquipmentStoreFormType>({
-                resolver: zodResolver(medicalEquipmentStoreEditForm),
-                defaultValues: {
-                    quantity: row.original.quantity,
-                    thresholdLevel: row.original.thresholdLevel,
-                }
-            })
-
-
-
-            async function onSubmitEdit(data: medicalEquipmentStoreFormType) {
+            async function onSubmitDecrement(data: actionFormType) {
                 setIsLoading(true)
 
-                const error = await updateMedicalEquipmentStoreAction(row.original.id, data)
+                const error = await decrementMedicalEquipmentStoreAction(row.original.id, data.quantity)
 
                 setIsLoading(false)
 
@@ -183,9 +169,10 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                     })
                 } else {
                     setIsDialogOpen(false)
+                    reset()
                     return toast({
                         title: "Success",
-                        description: "Equipment updated successfully.",
+                        description: "Equipment decremented successfully.",
                         variant: "default",
                     })
                 }
@@ -203,50 +190,50 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Edit")}>
+                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Increment")}>
                                 <DropdownMenuItem className="cursor-pointer">
-                                    Edit
+                                    Increment
                                 </DropdownMenuItem>
                             </DialogTrigger>
 
                             <DropdownMenuSeparator />
-                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Delete")}>
+                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Decrement")}>
                                 <DropdownMenuItem className="cursor-pointer">
-                                    Delete
+                                    Decrement
                                 </DropdownMenuItem>
                             </DialogTrigger>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <DialogContent>
-                        {openedDialog === "Delete" && (
+                        {openedDialog === "Decrement" && (
                             <>
                                 <DialogHeader>
-                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
-                                    <DialogDescription className="text-current">
-                                        Insert the following if you are sure: <p className="font-bold">{row.original.medicalEquipment.name}</p>
-                                    </DialogDescription>
+                                    <DialogTitle>Decrement the quantity of <span className="font-bold">{row.original.medicalEquipment.name}</span></DialogTitle>
                                 </DialogHeader>
-                                <form onSubmit={handleSubmit(onSubmit)}>
+                                <form onSubmit={handleSubmit(onSubmitDecrement)}>
                                     <div className="grid gap-1">
-                                        <Label className="sr-only" htmlFor="equipmentName">
-                                            Equipment Name
+                                        <Label className="sr-only" htmlFor="quantity">
+                                            Quantity
                                         </Label>
                                         <Input
-                                            id="equipmentName"
-                                            placeholder={row.original.medicalEquipment.name.toString()}
-                                            type="name"
+                                            id="quantity"
+                                            placeholder="Quantity"
+                                            type="number"
                                             autoCapitalize="none"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            {...register("equipmentName")}
+                                            {...register("quantity", { setValueAs: (value) => parseInt(value) })}
                                         />
-                                        {errors?.equipmentName && (
+                                        {errors?.quantity && (
                                             <p className="px-1 text-xs text-red-600">
-                                                {errors.equipmentName.message}
+                                                {errors.quantity.message}
                                             </p>
                                         )}
-                                        <Button variant="destructive" type="submit" disabled={(watch().equipmentName !== row.original.medicalEquipment.name) || isLoading}>
-                                            {isLoading ? "Deleting..." : "Delete"}
+                                        <Button variant="secondary" type="submit" disabled={isLoading}>
+                                            {isLoading && (
+                                                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Decrement
                                         </Button>
                                     </div>
                                 </form>
@@ -254,15 +241,12 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                         )
                         }
                         {
-                            openedDialog === "Edit" && (
+                            openedDialog === "Increment" && (
                                 <>
                                     <DialogHeader>
-                                        <DialogTitle>Editing Equipment: {row.original.medicalEquipment.name}</DialogTitle>
-                                        <DialogDescription className="text-current">
-                                            Insert the correct information
-                                        </DialogDescription>
+                                        <DialogTitle>Increment the quantity of <span className="font-bold">{row.original.medicalEquipment.name}</span></DialogTitle>
                                     </DialogHeader>
-                                    <form onSubmit={handleSubmitEdit(onSubmitEdit)}>
+                                    <form onSubmit={handleSubmit(onSubmitIncrement)}>
                                         <div className="grid gap-1">
                                             <Label className="sr-only" htmlFor="quantity">
                                                 Quantity
@@ -274,32 +258,18 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                                                 autoCapitalize="none"
                                                 autoCorrect="off"
                                                 disabled={isLoading}
-                                                {...registerEdit("quantity", { setValueAs: (value) => parseInt(value) })}
+                                                {...register("quantity", { setValueAs: (value) => parseInt(value) })}
                                             />
-                                            {errorsEdit?.quantity && (
+                                            {errors?.quantity && (
                                                 <p className="px-1 text-xs text-red-600">
-                                                    {errorsEdit.quantity.message}
-                                                </p>
-                                            )}
-                                            <Input
-                                                id="thresholdLevel"
-                                                placeholder="Threshold Level"
-                                                type="number"
-                                                autoCapitalize="none"
-                                                autoCorrect="off"
-                                                disabled={isLoading}
-                                                {...registerEdit("thresholdLevel", { setValueAs: (value) => parseInt(value) })}
-                                            />
-                                            {errorsEdit?.thresholdLevel && (
-                                                <p className="px-1 text-xs text-red-600">
-                                                    {errorsEdit.thresholdLevel.message}
+                                                    {errors.quantity.message}
                                                 </p>
                                             )}
                                             <Button variant="secondary" type="submit" disabled={isLoading}>
                                                 {isLoading && (
                                                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                                                 )}
-                                                Edit
+                                                Increment
                                             </Button>
                                         </div>
                                     </form>

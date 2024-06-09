@@ -3,12 +3,16 @@ import Table from "./table";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getAllMedicalEquipments } from "@/data/equipment-types";
-import { logout } from "@/app/lib/actions";
+
+const ALLOWED_ROLES = [
+    "HOSPITAL_ADMIN",
+    "DATA_ENCODER"
+]
 
 export default async function Page() {
     const session = await auth()
-    if (session === null || session.user.role !== "HOSPITAL_ADMIN" || session.user.hospitalId === null) {
-        return await logout()
+    if (session === null || !ALLOWED_ROLES.includes(session.user.role) || session.user.hospitalId === null) {
+        return redirect("/dashboard")
     }
 
     const data = await Promise.all([
@@ -17,6 +21,6 @@ export default async function Page() {
     ])
 
     return (
-        <Table data={data[0]} medicalEquipments={data[1]} />
+        <Table data={data[0]} medicalEquipments={data[1]} userRole={session.user.role} />
     )
 }

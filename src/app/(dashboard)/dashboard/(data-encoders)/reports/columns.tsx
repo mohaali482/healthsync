@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ColumnDef, RowData } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -13,18 +13,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { Icons } from "@/components/icons";
-import { deleteDiseaseAction, updateDiseaseAction } from "@/app/lib/actions/diseases";
-import { diseaseForm } from "@/lib/validations/diseases";
 import { Disease } from "../../(government)/diseases/columns";
 import { reportsForm } from "@/lib/validations/reports";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { deleteReportAction, updateReportAction } from "@/app/lib/actions/reports";
 
-declare module '@tanstack/react-table' {
-    interface TableMeta<TData extends RowData> {
-        diseases: Disease[] | undefined;
-    }
-}
 
 export type Report = {
     id: number;

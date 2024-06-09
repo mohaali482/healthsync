@@ -146,7 +146,7 @@ export const columns: ColumnDef<User>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: ({ row, table }) => {
 
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | "Change Password" | null>()
@@ -410,22 +410,24 @@ export const columns: ColumnDef<User>[] = [
                                                 </p>
                                             )}
                                         </div>
-                                        <div className="w-full flex items-center gap-2">
-                                            <Label htmlFor="isActive">
-                                                Active
-                                            </Label>
-                                            <Switch
-                                                id="isActive"
-                                                disabled={isLoading}
-                                                defaultChecked={getEditValues().isActive}
-                                                onCheckedChange={(value) => setEditValue("isActive", value)}
-                                            />
-                                            {errorsEdit?.isActive && (
-                                                <p className="px-1 text-xs text-red-600">
-                                                    {errorsEdit.isActive.message}
-                                                </p>
-                                            )}
-                                        </div>
+                                        {row.original.id !== table.options.meta?.userId && (
+                                            <div className="w-full flex items-center gap-2">
+                                                <Label htmlFor="isActive">
+                                                    Active
+                                                </Label>
+                                                <Switch
+                                                    id="isActive"
+                                                    disabled={isLoading}
+                                                    defaultChecked={getEditValues().isActive}
+                                                    onCheckedChange={(value) => setEditValue("isActive", value)}
+                                                />
+                                                {errorsEdit?.isActive && (
+                                                    <p className="px-1 text-xs text-red-600">
+                                                        {errorsEdit.isActive.message}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
                                         <div className="w-full">
                                             <Label className="sr-only" htmlFor="email">
                                                 Role

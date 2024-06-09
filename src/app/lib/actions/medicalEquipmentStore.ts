@@ -3,8 +3,10 @@
 import {
   createMedicalEquipmentStore,
   deleteMedicalEquipmentStore,
+  getMedicalEquipmentStore,
   getMedicalEquipmentStoreByHospitalIdAndMedicalEquipmentId,
-  updateMedicalEquipmentStore
+  updateMedicalEquipmentStore,
+  updateMedicalEquipmentStoreQuantity
 } from '@/data/medicalEquipmentStore';
 import { auth } from '@/lib/auth';
 import {
@@ -75,5 +77,61 @@ export async function deleteMedicalEquipmentStoreAction(id: number) {
       e
     );
     return 'Something went wrong.';
+  }
+}
+
+export async function incrementMedicalEquipmentStoreAction(
+  id: number,
+  quantity: number
+) {
+  try {
+    const equipment = await getMedicalEquipmentStore(id);
+    if (!equipment) {
+      return 'Something went wrong';
+    }
+
+    const newQuantity = equipment.quantity + quantity;
+    await updateMedicalEquipmentStoreQuantity(id, { quantity: newQuantity });
+    revalidatePath('/dashboard/equipment');
+  } catch (e) {
+    console.log(
+      'Error happened while trying to increment equipment with id: ',
+      id,
+      'and quantity',
+      quantity,
+      '\n[error]',
+      e
+    );
+    return 'Something went wrong';
+  }
+}
+
+export async function decrementMedicalEquipmentStoreAction(
+  id: number,
+  quantity: number
+) {
+  try {
+    const equipment = await getMedicalEquipmentStore(id);
+    if (!equipment) {
+      return 'Something went wrong';
+    }
+
+    if (equipment.quantity - quantity < 0) {
+      return "There isn't enough amount of this equipment in the store.";
+    }
+
+    const newQuantity = equipment.quantity - quantity;
+    await updateMedicalEquipmentStoreQuantity(id, { quantity: newQuantity });
+    revalidatePath('/dashboard/equipment');
+  } catch (e) {
+    console.log(
+      'Error happened while trying to decrement equipment with id: ',
+      id,
+      'and quantity',
+      quantity,
+      '\n[error]',
+      e
+    );
+    return 'Something went wrong';
   }
 }

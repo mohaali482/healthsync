@@ -15,7 +15,7 @@ export const changePasswordSchema = z
     path: ['confirm_password']
   });
 
-export const roles = ['GOVERNMENT', 'SUPER_USER'] as const;
+export const roles = ['SUPER_USER'] as const;
 
 export const userEditSchema = z.object({
   first_name: z.string().min(1, 'First name is required'),

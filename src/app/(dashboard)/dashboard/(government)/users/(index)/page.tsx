@@ -3,7 +3,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DataTable } from "@/components/data-table"
-import { getSuperAndGovernmentUsers } from "@/data/user"
+import { getSuperUsers } from "@/data/user"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 
@@ -12,7 +12,7 @@ export default async function Page() {
     if (!session || session.user.role !== "SUPER_USER") {
         return redirect("/dashboard")
     }
-    const data = await getSuperAndGovernmentUsers()
+    const data = await getSuperUsers()
 
     return (
         <div className="container mx-auto py-10">

@@ -12,7 +12,7 @@ export const links: {
     { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] },
     { link: '/dashboard/equipment-types', linkName: 'Equipment Types', icon: <Syringe />, activeLinks: ["/dashboard/equipment-types"] },
     { link: '/dashboard/diseases', linkName: 'Diseases', icon: <Biohazard />, activeLinks: ["/dashboard/diseases"] },
-    { link: '/dashboard/users', linkName: 'Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
+    { link: '/dashboard/users', linkName: 'Super Users', icon: <Users />, activeLinks: ["/dashboard/users"] },
   ],
   HOSPITAL_ADMIN: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },

@@ -17,12 +17,10 @@ export const metadata: Metadata = {
     title: "Dashboard",
 }
 
-const ALLOWED_ROLES = ["SUPER_USER", "DATA_ENCODER"]
-
 export default async function HospitalDashboard() {
     const session = await auth();
 
-    if (!session || !ALLOWED_ROLES.includes(session.user.role) || session.user.hospitalId === null) {
+    if (!session || session.user.hospitalId === null) {
         return redirect("/login")
     }
     const hospitalId = session.user.hospitalId;

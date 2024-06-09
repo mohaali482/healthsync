@@ -3,6 +3,7 @@
 import { DataTable } from "@/components/data-table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { columns, Resource } from "./columns";
+import { columns as dataEncodersColumns } from "./data-encoders-columns";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,15 +13,15 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { assetForm, assetTypes } from "@/lib/validations/assets";
+import { assetAddForm, assetTypes } from "@/lib/validations/assets";
 import { createResourceAction } from "@/app/lib/actions/assets";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-type assetFormType = z.infer<typeof assetForm>
+type assetFormType = z.infer<typeof assetAddForm>
 
-export default function Table({ data }: { data: Resource[] }) {
+export default function Table({ data, userRole }: { data: Resource[], userRole: string }) {
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<assetFormType>({
-        resolver: zodResolver(assetForm)
+        resolver: zodResolver(assetAddForm)
     })
     const [isLoading, setIsLoading] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -49,10 +50,12 @@ export default function Table({ data }: { data: Resource[] }) {
     return (
         <Dialog open={isDialogOpen} defaultOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <div className="container mx-auto py-10">
-                <DataTable columns={columns} data={data} actionButton={
-                    <DialogTrigger className={cn(buttonVariants({ variant: "default" }))}>
-                        Add
-                    </DialogTrigger>
+                <DataTable columns={userRole === "HOSPITAL_ADMIN" ? columns : dataEncodersColumns} data={data} actionButton={
+                    userRole === "HOSPITAL_ADMIN" && (
+                        <DialogTrigger className={cn(buttonVariants({ variant: "default" }))}>
+                            Add
+                        </DialogTrigger>
+                    )
                 } />
             </div>
 

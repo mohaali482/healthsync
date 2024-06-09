@@ -16,6 +16,7 @@ import { Icons } from "@/components/icons";
 import { deleteResourceAction, updateResourceAction } from "@/app/lib/actions/assets";
 import { assetForm, assetTypes } from "@/lib/validations/assets";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 
 const AssetType: {
@@ -35,6 +36,7 @@ export type Resource = {
     name: String;
     description: String;
     assetType: AssetType;
+    isActive: boolean;
     quantity: number;
 }
 
@@ -99,6 +101,22 @@ export const columns: ColumnDef<Resource>[] = [
                 </button>
             )
         },
+    },
+    {
+        accessorKey: "isActive",
+        header: ({ column }) => {
+            return (
+                <button className="flex p-2 rounded hover:bg-secondary/5"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Is Active
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </button>
+            )
+        },
+        cell: ({ row }) => {
+            return row.original.isActive ? <p className="text-green-500">Yes</p> : <p className="text-destructive">No</p>
+        }
     },
     {
         id: "actions",
@@ -264,6 +282,21 @@ export const columns: ColumnDef<Resource>[] = [
                                                 autoCorrect="off"
                                                 disabled={isLoading}
                                                 {...registerEdit("name")}
+                                            />
+                                            {errorsEdit?.name && (
+                                                <p className="px-1 text-xs text-red-600">
+                                                    {errorsEdit.name.message}
+                                                </p>
+                                            )}
+                                            <Label htmlFor="isActive">
+                                                Active
+                                            </Label>
+                                            <Switch
+                                                id="isActive"
+                                                disabled={isLoading}
+                                                defaultChecked={row.original.isActive}
+                                                onCheckedChange={(val) => setEditValue("isActive", val)}
+                                                {...registerEdit("isActive")}
                                             />
                                             {errorsEdit?.name && (
                                                 <p className="px-1 text-xs text-red-600">

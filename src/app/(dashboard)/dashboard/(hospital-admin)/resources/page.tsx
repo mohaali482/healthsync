@@ -20,6 +20,6 @@ export default async function Page() {
     const data = await getAllResources(user.user.hospitalId)
 
     return (
-        <Table data={data} />
+        <Table data={data} userRole={user.user.role} />
     )
 }

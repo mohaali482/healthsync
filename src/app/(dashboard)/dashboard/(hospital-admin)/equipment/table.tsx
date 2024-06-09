@@ -3,6 +3,7 @@
 import { DataTable } from "@/components/data-table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { columns, MedicalEquipmentStore, MedicalEquipment } from "./columns";
+import { columns as dataEncodersColumns } from "./data-encoders-columns";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 type medicalEquipmentStoreFormType = z.infer<typeof medicalEquipmentStoreForm>
 
-export default function Table({ data, medicalEquipments }: { data: MedicalEquipmentStore[], medicalEquipments: MedicalEquipment[] }) {
+export default function Table({ data, medicalEquipments, userRole }: { data: MedicalEquipmentStore[], medicalEquipments: MedicalEquipment[], userRole: string }) {
     const { register,
         handleSubmit,
         formState: { errors },
@@ -59,10 +60,12 @@ export default function Table({ data, medicalEquipments }: { data: MedicalEquipm
     return (
         <Dialog open={isDialogOpen} defaultOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <div className="container mx-auto py-10">
-                <DataTable columns={columns} data={data} actionButton={
-                    <DialogTrigger className={cn(buttonVariants({ variant: "default" }))}>
-                        Add
-                    </DialogTrigger>
+                <DataTable columns={userRole === "HOSPITAL_ADMIN" ? columns : dataEncodersColumns} data={data} actionButton={
+                    userRole === "HOSPITAL_ADMIN" && (
+                        <DialogTrigger className={cn(buttonVariants({ variant: "default" }))}>
+                            Add
+                        </DialogTrigger>
+                    )
                 } />
             </div>
 

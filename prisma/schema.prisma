@@ -112,6 +112,7 @@ model Asset {
   description String
   assetType   AssetType
   quantity    Int       @default(0)
+  isActive    Boolean   @default(true)
 
   hospital Hospital @relation(fields: [hospitalId], references: [id])
 

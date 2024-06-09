@@ -12,11 +12,30 @@ import { buttonVariants } from '../ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { editHospitalAction } from '@/app/lib/actions/hospital'
 import { toast } from '../ui/use-toast'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type HospitalFormData = z.infer<typeof hospitalEditSchema>
 
+const regions = [
+    { name: "Addis Ababa", value: "addis_ababa" },
+    { name: "Amhara", value: "amhara" },
+    { name: "Oromia", value: "oromia" },
+    { name: "Tigray", value: "tigray" },
+    { name: "Somali", value: "somali" },
+    { name: "Afar", value: "afar" },
+    { name: "Diredawa", value: "diredawa" },
+    { name: "Debub", value: "debub" },
+    { name: "Gambela", value: "gambela" },
+    { name: "B_gumuz", value: "b_gumuz" },
+    { name: "Harari", value: "harari" },
+]
+
 function HospitalEditForm({ hospitalId, hospitalData }: { hospitalId: number, hospitalData: HospitalFormData }) {
-    const { register, handleSubmit, formState: { errors } } = useForm<HospitalFormData>({ values: { ...hospitalData } })
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<HospitalFormData>({
+        values: { ...hospitalData },
+        resolver: zodResolver(hospitalEditSchema)
+    })
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data: HospitalFormData) => {
@@ -72,39 +91,26 @@ function HospitalEditForm({ hospitalId, hospitalData }: { hospitalId: number, ho
 
                         <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full">
                             <div className="w-full">
-                                <Label className="sr-only" htmlFor="city">
-                                    City
-                                </Label>
-                                <Input
-                                    id="city"
-                                    placeholder="City"
-                                    type="city"
-                                    autoCapitalize="none"
-                                    autoComplete="city"
-                                    autoCorrect="off"
-                                    disabled={isLoading}
-                                    {...register("city")}
-                                />
-                                {errors?.city && (
-                                    <p className="px-1 text-xs text-red-600">
-                                        {errors.city.message}
-                                    </p>
-                                )}
-                            </div>
-                            <div className="w-full">
                                 <Label className="sr-only" htmlFor="region">
                                     Region
                                 </Label>
-                                <Input
-                                    id="region"
-                                    placeholder="Region"
-                                    type="region"
-                                    autoCapitalize="none"
-                                    autoComplete="region"
-                                    autoCorrect="off"
+                                <Select
                                     disabled={isLoading}
-                                    {...register("region")}
-                                />
+                                    onValueChange={(value) => setValue("region", value)}
+                                    defaultValue={hospitalData.region}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            ref={register("region").ref}
+                                            placeholder="Region"
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {regions.map((val, index) => (
+                                            <SelectItem key={index} value={val.value}>{val.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                                 {errors?.region && (
                                     <p className="px-1 text-xs text-red-600">
                                         {errors.region.message}

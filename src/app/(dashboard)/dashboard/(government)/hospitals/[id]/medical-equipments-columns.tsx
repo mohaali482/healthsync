@@ -10,7 +10,6 @@ export type MedicalEquipmentStore = {
         name: String;
     };
     quantity: number;
-    inStock: Boolean;
 }
 
 export const columns: ColumnDef<MedicalEquipmentStore>[] = [
@@ -39,21 +38,5 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
                 </button>
             )
         },
-    },
-    {
-        accessorKey: "inStock",
-        header: ({ column }) => {
-            return (
-                <button className="flex p-2 rounded hover:bg-secondary/5"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    In Stock
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </button>
-            )
-        },
-        cell: ({ row }) => {
-            return row.original.inStock ? "Yes" : "No"
-        }
     },
 ]

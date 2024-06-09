@@ -7,6 +7,20 @@ import { z } from 'zod';
 
 type medicalEquipmentStoreFormType = z.infer<typeof medicalEquipmentStoreForm>;
 
+export function getAllMedicalEquipmentStoreAggregate(region: string) {
+  return prisma.medicalEquipmentStore.groupBy({
+    by: ['medicalEquipmentId'],
+    where: {
+      hospital: {
+        region: region
+      }
+    },
+    _sum: {
+      quantity: true
+    }
+  });
+}
+
 export function getAllMedicalEquipmentStore(hospitalId: number) {
   return prisma.medicalEquipmentStore.findMany({
     where: {

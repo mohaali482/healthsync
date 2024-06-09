@@ -8,6 +8,20 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import AdminTable from "./admin-table";
 
+const regions = [
+    { name: "Addis Ababa", value: "addis_ababa" },
+    { name: "Amhara", value: "amhara" },
+    { name: "Oromia", value: "oromia" },
+    { name: "Tigray", value: "tigray" },
+    { name: "Somali", value: "somali" },
+    { name: "Afar", value: "afar" },
+    { name: "Diredawa", value: "diredawa" },
+    { name: "Debub", value: "debub" },
+    { name: "Gambela", value: "gambela" },
+    { name: "B_gumuz", value: "b_gumuz" },
+    { name: "Harari", value: "harari" },
+]
+
 export default async function Page({ params }: { params: { id: string } }) {
     const hospital = await getHospitalById(parseInt(params.id))
     if (hospital === null) return (<p>Hospital not found</p>)
@@ -32,7 +46,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         <div className="flex flex-col gap-2">
                             <p className="font-bold">{hospital.name}</p>
                             <p className="font-bold">{hospital.city}</p>
-                            <p className="font-bold">{hospital.region}</p>
+                            <p className="font-bold">{regions.find(region => hospital.region === region.value)?.name}</p>
                             <p className="font-bold">{hospital.woreda}</p>
                             <p className="font-bold">{hospital.zone}</p>
                         </div>

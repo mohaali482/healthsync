@@ -14,6 +14,14 @@ export function getAllMedicalEquipmentsCount() {
   return prisma.medicalEquipment.count();
 }
 
+export function getMedicalEquipment(id: number) {
+  return prisma.medicalEquipment.findUnique({
+    where: {
+      id
+    }
+  });
+}
+
 export function createMedicalEquipment(data: equipmentFormType) {
   return prisma.medicalEquipment.create({
     data

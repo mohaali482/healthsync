@@ -21,6 +21,19 @@ export function getReportDiseases() {
   });
 }
 
+export function getDiseaseWithMostReports() {
+  return prisma.disease.findFirst({
+    orderBy: {
+      reports: {
+        _count: 'desc'
+      }
+    },
+    include: {
+      reports: true
+    }
+  });
+}
+
 export function getYearReports(diseaseId: number, year: number) {
   const startDate = new Date();
   startDate.setFullYear(year);

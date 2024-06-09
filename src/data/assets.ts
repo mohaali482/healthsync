@@ -14,6 +14,10 @@ export function getAllResources(hospitalId: number) {
   });
 }
 
+export function getAllResourcesCount() {
+  return prisma.asset.count();
+}
+
 export function getResource(id: number) {
   return prisma.asset.findFirst({
     where: {

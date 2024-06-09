@@ -20,13 +20,11 @@ import { Switch } from "@/components/ui/switch";
 
 const Role: {
     USER: "USER",
-    GOVERNMENT: "GOVERNMENT",
     HOSPITAL_ADMIN: "HOSPITAL_ADMIN",
     DATA_ENCODER: "DATA_ENCODER",
     SUPER_USER: "SUPER_USER",
 } = {
     USER: "USER",
-    GOVERNMENT: "GOVERNMENT",
     HOSPITAL_ADMIN: "HOSPITAL_ADMIN",
     DATA_ENCODER: "DATA_ENCODER",
     SUPER_USER: "SUPER_USER",

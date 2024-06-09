@@ -65,10 +65,10 @@ export async function addUser(data: addUserData) {
   });
 }
 
-export async function getSuperAndGovernmentUsers() {
+export async function getSuperUsers() {
   return prisma.user.findMany({
     where: {
-      OR: [{ role: 'GOVERNMENT' }, { role: 'SUPER_USER' }]
+      OR: [{ role: 'SUPER_USER' }]
     },
     orderBy: {
       id: 'asc'

@@ -33,7 +33,7 @@ export default function TableComponent({ data }: { data: RecommendationData[] })
                     </TableHeader>
                     <TableBody>
                         {data.map((row, idx) => (
-                            <TableRow>
+                            <TableRow key={idx}>
                                 <TableCell className="hidden sm:table-cell">{idx + 1}</TableCell>
                                 <TableCell className="hidden sm:table-cell">{row.name}</TableCell>
                                 <TableCell className="hidden md:table-cell">{row.value}</TableCell>

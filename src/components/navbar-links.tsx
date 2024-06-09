@@ -8,7 +8,6 @@ export const links: {
   = {
   SUPER_USER: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
-    { link: '/dashboard/analysis', linkName: 'Analysis', icon: <LineChart />, activeLinks: ["/dashboard/analysis"] },
     { link: '/dashboard/prediction', linkName: 'Prediction', icon: <BarChart3 />, activeLinks: ["/dashboard/prediction"] },
     { link: '/dashboard/hospitals', linkName: 'Hospitals', icon: <Hospital />, activeLinks: ['/dashboard/hospitals', '/dashboard/hospitals/add'] },
     { link: '/dashboard/equipment-types', linkName: 'Equipment Types', icon: <Syringe />, activeLinks: ["/dashboard/equipment-types"] },

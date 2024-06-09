@@ -24,8 +24,8 @@ export default async function Analysis() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {diseases.map(disease => (
-                        <TableRow>
+                    {diseases.map((disease, idx) => (
+                        <TableRow key={idx}>
                             <TableCell className="font-medium">{disease.name}</TableCell>
                             <TableCell>{disease.description}</TableCell>
                             <TableCell>{disease.reports.length}</TableCell>

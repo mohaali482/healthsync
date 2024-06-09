@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { userAddSchema, userEditSchema } from '@/lib/validations/auth';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
 
 export async function changeUserPasswordAction(
   userId: string,
@@ -121,4 +122,39 @@ export async function addUserAction(data: addUserData) {
 
   revalidatePath('/dashboards/users');
   redirect('/dashboard/users');
+}
+
+export async function changeSelfUserPasswordAction(
+  password: string,
+  newPassword: string
+) {
+  try {
+    const session = await auth();
+    if (!session) {
+      return redirect('/login');
+    }
+
+    const user = await getUserByUsername(session.user.username);
+    if (!user) {
+      return redirect('/login');
+    }
+
+    const checkPassword = await bcrypt.compare(password, user.password);
+    if (!checkPassword) {
+      return 'Wrong password.';
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      newPassword,
+      parseInt(process.env.HASH_ROUNDS!)
+    );
+    await changeUserPassword(user.id, hashedPassword);
+  } catch (e) {
+    console.log(
+      `Error happened while changing user's password.`,
+      '\n [error]: ',
+      e
+    );
+    return 'Something went wrong, please try again later or contact support if this occurs again.';
+  }
 }

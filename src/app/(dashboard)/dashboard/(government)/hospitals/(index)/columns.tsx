@@ -19,11 +19,25 @@ export type Hospital = {
     id: number;
     name: String;
     region: String;
-    city: String;
     zone: String;
     woreda: String;
     createdAt: Date;
 }
+
+
+const regions = [
+    { name: "Addis Ababa", value: "addis_ababa" },
+    { name: "Amhara", value: "amhara" },
+    { name: "Oromia", value: "oromia" },
+    { name: "Tigray", value: "tigray" },
+    { name: "Somali", value: "somali" },
+    { name: "Afar", value: "afar" },
+    { name: "Diredawa", value: "diredawa" },
+    { name: "Debub", value: "debub" },
+    { name: "Gambela", value: "gambela" },
+    { name: "B_gumuz", value: "b_gumuz" },
+    { name: "Harari", value: "harari" },
+]
 
 export const columns: ColumnDef<Hospital>[] = [
     {
@@ -51,20 +65,9 @@ export const columns: ColumnDef<Hospital>[] = [
                 </button>
             )
         },
-    },
-    {
-        accessorKey: "city",
-
-        header: ({ column }) => {
-            return (
-                <button className="flex p-2 rounded hover:bg-secondary/5"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    City
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </button>
-            )
-        },
+        cell: ({ row }) => {
+            return regions.find(region => row.original.region === region.value)?.name
+        }
     },
     {
         accessorKey: "zone",

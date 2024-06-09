@@ -28,9 +28,9 @@ export async function createHospital(data: CreateHospital) {
   return await prisma.hospital.create({
     data: {
       name: data.name,
-      city: data.city,
       region: data.region,
       woreda: data.woreda,
+      city: '',
       zone: data.zone,
       admins: {
         create: {
@@ -102,7 +102,7 @@ export async function hospitalEdit(hospitalId: number, data: hospitalEditData) {
     },
     data: {
       name: data.name,
-      city: data.city,
+      city: '',
       region: data.region,
       woreda: data.woreda,
       zone: data.zone

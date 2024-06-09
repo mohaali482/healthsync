@@ -13,6 +13,14 @@ export function getAllHumanResources(hospitalId: number) {
   });
 }
 
+export function getAllHospitalHumanResourcesCount(hospitalId: number) {
+  return prisma.humanResource.count({
+    where: {
+      hospitalId
+    }
+  });
+}
+
 export function getAllHumanResourcesCount() {
   return prisma.humanResource.count();
 }

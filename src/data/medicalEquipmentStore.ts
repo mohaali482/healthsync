@@ -19,6 +19,14 @@ export function getAllMedicalEquipmentStore(hospitalId: number) {
   });
 }
 
+export function getAllMedicalEquipmentStoreCount(hospitalId: number) {
+  return prisma.medicalEquipmentStore.count({
+    where: {
+      hospitalId
+    }
+  });
+}
+
 export function getMedicalEquipmentStore(id: number) {
   return prisma.medicalEquipmentStore.findFirst({
     where: {

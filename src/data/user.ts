@@ -75,3 +75,12 @@ export async function getSuperUsers() {
     }
   });
 }
+
+export async function getAllDataEncodersCount(hospitalId: number) {
+  return prisma.user.count({
+    where: {
+      hospitalId,
+      role: 'DATA_ENCODER'
+    }
+  });
+}

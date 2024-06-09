@@ -34,6 +34,49 @@ export function getDiseaseWithMostReports() {
   });
 }
 
+export function getDiseaseWithMostReportsPerHospital(hospitalId: number) {
+  return prisma.disease.findFirst({
+    where: {
+      reports: {
+        some: {
+          hospitalId
+        }
+      }
+    },
+    orderBy: {
+      reports: {
+        _count: 'desc'
+      }
+    },
+    include: {
+      reports: true
+    }
+  });
+}
+
+export function getDiseaseWithWeeklyReportsPerHospital(hospitalId: number) {
+  return prisma.disease.findFirst({
+    where: {
+      reports: {
+        some: {
+          hospitalId,
+          reportDate: {
+            gt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+          }
+        }
+      }
+    },
+    orderBy: {
+      reports: {
+        _count: 'desc'
+      }
+    },
+    include: {
+      reports: true
+    }
+  });
+}
+
 export function getYearReports(diseaseId: number, year: number) {
   const startDate = new Date();
   startDate.setFullYear(year);

@@ -3,7 +3,8 @@ import { Metadata } from "next"
 import { logout } from "../../lib/actions"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import SuperUserDashboard from "./(super-user)/dashboard"
+import SuperUserDashboard from "./(dashboard)/(super-user)/dashboard"
+import HospitalDashboard from "./(dashboard)/(hospital-admin-data-encoders)/dashboard"
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -19,15 +20,6 @@ export default async function Dashboard() {
     }
 
     return (
-        <div>
-            Hello
-            <form action={async () => {
-                "use server"
-                await logout()
-            }}>
-
-                <Button type="submit">Logout</Button>
-            </form>
-        </div>
+        <HospitalDashboard />
     )
 }

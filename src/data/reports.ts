@@ -4,7 +4,10 @@ import { z } from 'zod';
 
 export function getAllReports() {
   return prisma.report.findMany({
-    orderBy: { id: 'asc' }
+    orderBy: { id: 'asc' },
+    include: {
+      disease: true
+    }
   });
 }
 

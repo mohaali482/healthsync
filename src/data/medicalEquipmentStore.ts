@@ -19,6 +19,14 @@ export function getAllMedicalEquipmentStore(hospitalId: number) {
   });
 }
 
+export function getMedicalEquipmentStore(id: number) {
+  return prisma.medicalEquipmentStore.findFirst({
+    where: {
+      id
+    }
+  });
+}
+
 export function createMedicalEquipmentStore(
   data: medicalEquipmentStoreFormType,
   hospitalId: number
@@ -64,5 +72,17 @@ export function getMedicalEquipmentStoreByHospitalIdAndMedicalEquipmentId(
       hospitalId,
       medicalEquipmentId
     }
+  });
+}
+
+export function updateMedicalEquipmentStoreQuantity(
+  id: number,
+  data: { quantity: number }
+) {
+  return prisma.medicalEquipmentStore.update({
+    where: {
+      id
+    },
+    data
   });
 }

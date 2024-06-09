@@ -45,7 +45,7 @@ export function DataTable<TData, TValue>({
     actionButton,
     diseases,
     userId,
-}: { actionButton: React.ReactNode | null } & DataTableProps<TData, TValue>) {
+}: { actionButton?: React.ReactNode | null } & DataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('')
     const [sorting, setSorting] = useState<SortingState>([])
 

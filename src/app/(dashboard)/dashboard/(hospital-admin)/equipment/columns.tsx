@@ -117,7 +117,7 @@ export const columns: ColumnDef<MedicalEquipmentStore>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [isLoading, setIsLoading] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | null>()

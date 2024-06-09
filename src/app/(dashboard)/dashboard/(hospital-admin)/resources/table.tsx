@@ -115,16 +115,16 @@ export default function Table({ data, userRole }: { data: Resource[], userRole: 
                                 </p>
                             )}
                             <SelectContent>
-                                {assetTypes.map(assetType => {
+                                {assetTypes.map((assetType, idx) => {
                                     if (assetType.includes("_")) {
                                         const [first, second] = assetType.split("_")
 
                                         return (
-                                            <SelectItem value={assetType}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
+                                            <SelectItem key={idx} value={assetType}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
                                         )
                                     }
                                     return (
-                                        <SelectItem value={assetType}>{assetType[0] + assetType.slice(1).toLowerCase()}</SelectItem>
+                                        <SelectItem key={idx} value={assetType}>{assetType[0] + assetType.slice(1).toLowerCase()}</SelectItem>
                                     )
                                 })
                                 }

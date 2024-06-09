@@ -69,7 +69,7 @@ export const columns: ColumnDef<HumanResource>[] = [
         header: () => {
             return "Actions"
         },
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [isLoading, setIsLoading] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | null>()
@@ -245,16 +245,16 @@ export const columns: ColumnDef<HumanResource>[] = [
                                                     </p>
                                                 )}
                                                 <SelectContent>
-                                                    {humanResourceType.map(type => {
+                                                    {humanResourceType.map((type, idx) => {
                                                         if (type.includes("_")) {
                                                             const [first, second] = type.split("_")
 
                                                             return (
-                                                                <SelectItem value={type}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
+                                                                <SelectItem key={idx} value={type}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
                                                             )
                                                         }
                                                         return (
-                                                            <SelectItem value={type}>{type[0] + type.slice(1).toLowerCase()}</SelectItem>
+                                                            <SelectItem key={idx} value={type}>{type[0] + type.slice(1).toLowerCase()}</SelectItem>
                                                         )
                                                     })
                                                     }

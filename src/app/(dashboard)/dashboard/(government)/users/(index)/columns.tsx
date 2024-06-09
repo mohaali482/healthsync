@@ -144,7 +144,7 @@ export const columns: ColumnDef<User>[] = [
     },
     {
         id: "actions",
-        cell: ({ row, table }) => {
+        cell: function Cell({ row, table }) {
 
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | "Change Password" | null>()
@@ -441,16 +441,16 @@ export const columns: ColumnDef<User>[] = [
                                                     </p>
                                                 )}
                                                 <SelectContent>
-                                                    {roles.map(role => {
+                                                    {roles.map((role, idx) => {
                                                         if (role.includes("_")) {
                                                             const [first, second] = role.split("_")
 
                                                             return (
-                                                                <SelectItem value={role}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
+                                                                <SelectItem key={idx} value={role}>{first[0] + first.slice(1).toLowerCase() + " " + second[0] + second.slice(1).toLowerCase()}</SelectItem>
                                                             )
                                                         }
                                                         return (
-                                                            <SelectItem value={role}>{role[0] + role.slice(1).toLowerCase()}</SelectItem>
+                                                            <SelectItem key={idx} value={role}>{role[0] + role.slice(1).toLowerCase()}</SelectItem>
                                                         )
                                                     })
                                                     }

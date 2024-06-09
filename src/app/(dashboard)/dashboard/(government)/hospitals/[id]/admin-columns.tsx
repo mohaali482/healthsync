@@ -101,7 +101,7 @@ export const columns: ColumnDef<Admin>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const FormSchema = z.object({
                 username: z.string().min(1, "Username is required").includes(row.original.username.toString(),
                     { message: "Must be the username of the admin you want to delete" })

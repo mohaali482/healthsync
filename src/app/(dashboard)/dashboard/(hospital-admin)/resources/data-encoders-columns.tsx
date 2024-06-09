@@ -120,7 +120,7 @@ export const columns: ColumnDef<Resource>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [isLoading, setIsLoading] = useState(false)
 

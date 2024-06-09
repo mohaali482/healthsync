@@ -13,13 +13,9 @@ export const metadata: Metadata = {
 export default async function Dashboard() {
     const session = await auth()
 
-    if (!session) {
-        return redirect("/login")
-    } else if (session.user.role === "SUPER_USER") {
-        return <SuperUserDashboard />
-    }
+    if (!session) return redirect("/login")
 
-    return (
-        <HospitalDashboard />
-    )
+    if (session.user.role === "SUPER_USER") return <SuperUserDashboard />
+
+    return <HospitalDashboard />
 }

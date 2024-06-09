@@ -85,7 +85,7 @@ export const columns: ColumnDef<Report>[] = [
     },
     {
         id: "actions",
-        cell: ({ row, table }) => {
+        cell: function Cell({ row, table }) {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [isLoading, setIsLoading] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | null>()

@@ -11,13 +11,14 @@ import HeaderLink from "./HeaderLink"
 import ThemeButton from "../ThemeButton"
 import { useEffect } from "react"
 
-function Header({ links }: {
+function Header({ links, role }: {
     links: {
         link: string;
         linkName: string;
         icon: React.ReactNode
         activeLinks: string[];
-    }[]
+    }[],
+    role: string;
 }) {
 
     useEffect(() => {
@@ -55,7 +56,8 @@ function Header({ links }: {
                 </SheetContent>
             </Sheet>
             <DefaultBreadcrumb />
-            <div className="relative ml-auto md:grow-0">
+            <div className="relative flex items-center ml-auto md:grow-0">
+                <span className="mr-2 font-bold my-auto text-center">{role}</span>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button

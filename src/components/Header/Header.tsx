@@ -71,6 +71,11 @@ function Header({ links }: {
                         <DropdownMenuSeparator />
                         <ThemeButton />
                         <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                            <Link href={"/change-password"} className="w-full text-left" type="submit">
+                                Change Password
+                            </Link>
+                        </DropdownMenuItem>
                         <form action={async () => await logout()}>
                             <DropdownMenuItem>
                                 <button className="w-full text-left" type="submit">

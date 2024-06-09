@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth"
 
 async function layout({ children }: { children: React.ReactNode }) {
     const session = await auth()
-    const links = getLinks(session?.user.role)
+    const links = getLinks(session?.user.role as any)
 
     return (
         <Layout links={links}>

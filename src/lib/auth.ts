@@ -24,7 +24,7 @@ async function getUser(username: string, password: string) {
   };
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   session: {
     strategy: 'jwt'

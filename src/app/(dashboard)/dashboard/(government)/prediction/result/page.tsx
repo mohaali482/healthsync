@@ -20,15 +20,15 @@ type ResultData = {
 }
 
 export default async function Page({ searchParams }: {
-    searchParams: {
-        region: string
-        startDate: string
-        endDate: string
-        disease: string
+    searchParams?: {
+        region?: string
+        startDate?: string
+        endDate?: string
+        disease?: string
     }
 }) {
     try {
-        const data: ResultData = await JSON.parse(await requestPrediction(searchParams?.region, searchParams?.startDate, searchParams?.endDate))
+        const data: ResultData = await JSON.parse(await requestPrediction(searchParams?.region!, searchParams?.startDate!, searchParams?.endDate!))
         return (
             <div>
                 <ChartComponent data={data} />

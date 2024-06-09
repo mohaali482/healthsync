@@ -2,6 +2,7 @@ import { Metadata } from "next"
 
 import { Icons } from "@/components/icons"
 import { UserAuthForm } from "@/components/forms/UserAuthForm"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Login",
@@ -22,7 +23,9 @@ export default function LoginPage() {
                         Enter your email to sign in to your account
                     </p>
                 </div>
-                <UserAuthForm />
+                <Suspense>
+                    <UserAuthForm />
+                </Suspense>
             </div>
         </div>
     )

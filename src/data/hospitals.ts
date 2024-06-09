@@ -11,6 +11,10 @@ export async function getAllHospitals() {
   return await prisma.hospital.findMany({ orderBy: { id: 'asc' } });
 }
 
+export async function getAllHospitalsCount() {
+  return await prisma.hospital.count();
+}
+
 export async function deleteHospital(id: number) {
   return await prisma.hospital.delete({
     where: {

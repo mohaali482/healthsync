@@ -2,15 +2,22 @@
 import bcrypt from 'bcrypt';
 
 import {
+  addDataEncoder,
   addUser,
   changeUserPassword,
   deleteUser,
+  editDataEncoder,
   editUser,
   getUserByEmail,
   getUserByUsername
 } from '@/data/user';
 import { z } from 'zod';
-import { userAddSchema, userEditSchema } from '@/lib/validations/auth';
+import {
+  dataEncoderAddSchema,
+  dataEncoderEditSchema,
+  userAddSchema,
+  userEditSchema
+} from '@/lib/validations/auth';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
@@ -55,6 +62,40 @@ export async function editUserAction(id: string, data: editUserData) {
 
     await editUser(id, data);
     revalidatePath(`/dashboard/users/`);
+  } catch (e) {
+    console.log(
+      'Error happened while trying to update user with id: ',
+      id,
+      '\n[error]:',
+      e
+    );
+    return 'Something went wrong.';
+  }
+}
+
+type editDataEncoderData = z.infer<typeof dataEncoderEditSchema>;
+export async function editDataEncoderAction(
+  id: string,
+  data: editDataEncoderData
+) {
+  try {
+    let user = await getUserByEmail(data.email);
+    if (user && user.id != id) {
+      return {
+        key: 'email',
+        message: 'User with this email already exists'
+      };
+    }
+    user = await getUserByUsername(data.username);
+    if (user && user.id != id) {
+      return {
+        key: 'username',
+        message: 'User with this username already exists'
+      };
+    }
+
+    await editDataEncoder(id, data);
+    revalidatePath(`/dashboard/data-encoders/`);
   } catch (e) {
     console.log(
       'Error happened while trying to update user with id: ',
@@ -156,5 +197,53 @@ export async function changeSelfUserPasswordAction(
       e
     );
     return 'Something went wrong, please try again later or contact support if this occurs again.';
+  }
+}
+
+type addDataEncoderData = z.infer<typeof dataEncoderAddSchema>;
+export async function addDataEncoderAction(
+  hospitalId: number,
+  data: addDataEncoderData
+) {
+  try {
+    let user = await getUserByEmail(data.email);
+    if (user) {
+      return {
+        key: 'email',
+        message: 'User with this email already exists'
+      };
+    }
+    user = await getUserByUsername(data.username);
+    if (user) {
+      return {
+        key: 'username',
+        message: 'User with this username already exists'
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      data.password,
+      parseInt(process.env.HASH_ROUNDS!)
+    );
+
+    data.password = hashedPassword;
+    const validatedData = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      role: 'DATA_ENCODER',
+      hospitalId: hospitalId
+    };
+
+    await addDataEncoder(validatedData);
+  } catch (e) {
+    console.log(
+      'Error happened while trying to create data encoder',
+      '\n[error]:',
+      e
+    );
+    return 'Something went wrong.';
   }
 }

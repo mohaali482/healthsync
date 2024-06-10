@@ -9,6 +9,7 @@ declare global {
       SUPER_USER_LAST_NAME: string;
       SUPER_USER_PASSWORD: string;
       HASH_ROUNDS: string;
+      PREDICTION_URL: string;
     }
   }
 }

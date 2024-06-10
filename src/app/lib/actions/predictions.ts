@@ -24,12 +24,13 @@ export async function requestPrediction(
       medicalEquipmentStore._sum.quantity;
   }
 
-  const data = await fetch('http://10.240.68.227:5000/predict', {
+  const data = await fetch(process.env.PREDICTION_URL, {
     headers: {
       'Content-Type': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify({
+      authorization_token: process.env.AUTH_SECRET,
       region: region,
       start_date: startDate,
       end_date: endDate,

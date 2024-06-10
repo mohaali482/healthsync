@@ -27,7 +27,7 @@ export const links: {
     { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard/resources"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard/reports"] },
     { link: '/dashboard/human-resources', linkName: 'Human Resources', icon: <Users />, activeLinks: ["/dashboard/human-resources"] },
-    { link: '/dashboard/data-encoders', linkName: 'Data Encoders', icon: <Keyboard />, activeLinks: ["/dashboard/data-encoders"] },
+    { link: '/dashboard/data-encoders', linkName: 'Data Encoders', icon: <Keyboard />, activeLinks: ["/dashboard/data-encoders", "/dashboard/data-encoders/add"] },
   ],
   DATA_ENCODER: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },

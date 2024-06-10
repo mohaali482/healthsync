@@ -9,6 +9,7 @@ import { Disease } from "../diseases/columns";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Label } from "@/components/ui/label";
 
 const regions = [
     { name: "Addis Ababa", value: "addis_ababa" },
@@ -99,13 +100,19 @@ export default function Form({ disease }: { disease: Disease[] }) {
                         </p>
                     )}
 
+                    <div className="flex items-center gap-2">
+                        <Label htmlFor="startDate" className="w-[100px]">
+                            Start Date
+                        </Label>
 
-                    <Input
-                        id="startDate"
-                        placeholder="Start Date"
-                        type="date"
-                        {...register("startDate")}
-                    />
+                        <Input
+                            id="startDate"
+                            placeholder="Start Date"
+                            type="date"
+                            {...register("startDate")}
+                        />
+
+                    </div>
 
                     {errors?.startDate && (
                         <p className="px-1 text-xs text-red-600">
@@ -113,14 +120,21 @@ export default function Form({ disease }: { disease: Disease[] }) {
                         </p>
                     )}
 
+                    <div className="flex items-center">
+                        <Label className="w-[100px]" htmlFor="endDate">
+                            End Date
+                        </Label>
 
-                    <Input
-                        id="endDate"
-                        placeholder="Start Date"
-                        type="date"
 
-                        {...register("endDate")}
-                    />
+                        <Input
+                            id="endDate"
+                            placeholder="Start Date"
+                            type="date"
+
+                            {...register("endDate")}
+                        />
+
+                    </div>
                     {errors?.endDate && (
                         <p className="px-1 text-xs text-red-600">
                             {errors.endDate.message}

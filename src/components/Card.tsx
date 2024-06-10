@@ -8,7 +8,7 @@ import {
 
 export default function CardComponent({ title, value, description }: { title: string; value: string; description: string }) {
     return (
-        <Card className="lg:min-w-64">
+        <Card>
             <CardHeader className="pb-2">
                 <CardDescription className="text-current font-bold">{title}</CardDescription>
                 <CardTitle className="text-4xl text-current">{value}</CardTitle>

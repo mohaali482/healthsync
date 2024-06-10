@@ -24,7 +24,6 @@ const linkRegexes = [
 
 function SidebarLink({ icon, link, linkName, open, activeLinks }: { icon: React.ReactNode, link: string, linkName: string, open: boolean, activeLinks: string[]; }) {
     const pathname = usePathname()
-    console.log(linkRegexes.find(val => val.link === link)?.regex.test(pathname), pathname);
 
     return (
         <Tooltip>

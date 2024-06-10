@@ -271,11 +271,13 @@ export const columns: ColumnDef<User>[] = [
                                     Edit
                                 </DropdownMenuItem>
                             </DialogTrigger>
-                            <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Change Password")}>
-                                <DropdownMenuItem className="cursor-pointer">
-                                    Change Password
-                                </DropdownMenuItem>
-                            </DialogTrigger>
+                            {row.original.id !== table.options.meta?.userId && (
+                                <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Change Password")}>
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        Change Password
+                                    </DropdownMenuItem>
+                                </DialogTrigger>
+                            )}
                             <DropdownMenuSeparator />
                             <DialogTrigger className="w-full" onClick={() => setOpenedDialog("Delete")}>
                                 <DropdownMenuItem className="cursor-pointer">

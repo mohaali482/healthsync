@@ -53,7 +53,6 @@ const linkRegexes = [
 
 function HeaderLink({ icon, link, linkName, activeLinks }: { icon: React.ReactNode, link: string, linkName: string, activeLinks: string[]; }) {
     const pathname = usePathname()
-    console.log(pathname);
 
     return (
         <Link

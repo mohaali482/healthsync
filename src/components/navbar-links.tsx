@@ -1,4 +1,4 @@
-import { BarChart3, Biohazard, Briefcase, Home, Hospital, Keyboard, NotebookText, Syringe, Users } from "lucide-react";
+import { BarChart3, Bell, Biohazard, Briefcase, Home, Hospital, Keyboard, NotebookText, Syringe, Users } from "lucide-react";
 import React from "react";
 
 export const links: {
@@ -18,6 +18,7 @@ export const links: {
   HOSPITAL_ADMIN: [
     { link: '/dashboard', linkName: 'Dashboard', icon: <Home />, activeLinks: ["/dashboard"] },
     { link: '/dashboard/equipment', linkName: 'Equipment', icon: <Syringe />, activeLinks: ["/dashboard/equipment"] },
+    { link: '/dashboard/alerts', linkName: 'Equipment Alerts', icon: <Bell />, activeLinks: ["/dashboard/alerts"] },
     { link: '/dashboard/resources', linkName: 'Resources', icon: <Briefcase />, activeLinks: ["/dashboard/resources"] },
     { link: '/dashboard/reports', linkName: 'Reports', icon: <NotebookText />, activeLinks: ["/dashboard/reports"] },
     { link: '/dashboard/human-resources', linkName: 'Human Resources', icon: <Users />, activeLinks: ["/dashboard/human-resources"] },

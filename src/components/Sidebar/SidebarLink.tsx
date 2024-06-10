@@ -12,6 +12,7 @@ const linkRegexes = [
     { link: "/dashboard/hospitals", regex: /^\/dashboard\/hospitals(\/(add|edit\/\d+|\d+))?$/ },
     { link: "/dashboard/equipment-types", regex: /^\/dashboard\/equipment-types$/ },
     { link: "/dashboard/diseases", regex: /^\/dashboard\/diseases$/ },
+    { link: "/dashboard/alerts", regex: /^\/dashboard\/alerts$/ },
     { link: "/dashboard/users", regex: /^\/dashboard\/users(\/add)?$/ },
     { link: "/dashboard/equipment", regex: /^\/dashboard\/equipment$/ },
     { link: "/dashboard/resources", regex: /^\/dashboard\/resources$/ },

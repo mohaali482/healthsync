@@ -33,6 +33,23 @@ export function getAllMedicalEquipmentStore(hospitalId: number) {
   });
 }
 
+export function getAllMedicalEquipmentStoreWithLowQuantityThanThreshold(
+  hospitalId: number
+) {
+  return prisma.medicalEquipmentStore.findMany({
+    where: {
+      hospitalId: hospitalId,
+      quantity: {
+        lte: prisma.medicalEquipmentStore.fields.thresholdLevel
+      }
+    },
+    orderBy: { id: 'asc' },
+    include: {
+      medicalEquipment: true
+    }
+  });
+}
+
 export function getAllMedicalEquipmentStoreCount(hospitalId: number) {
   return prisma.medicalEquipmentStore.count({
     where: {

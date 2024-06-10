@@ -29,7 +29,10 @@ const formSchema = z.object({
     disease: z.string().min(1, { message: "This field is required" }),
     startDate: z.string().min(1, { message: "This field is required" }),
     endDate: z.string().min(1, { message: "This field is required" }),
-})
+}).refine(data => new Date(data.startDate) < new Date(data.endDate), {
+    message: 'Start date must be before end date.',
+    path: ['endDate']
+});
 
 type FormType = z.infer<typeof formSchema>
 

@@ -53,7 +53,11 @@ export async function getHospitalById(id: number) {
         id
       },
       include: {
-        admins: true,
+        admins: {
+          where: {
+            role: 'HOSPITAL_ADMIN'
+          }
+        },
         medicalEquipmentStore: {
           include: {
             medicalEquipment: true

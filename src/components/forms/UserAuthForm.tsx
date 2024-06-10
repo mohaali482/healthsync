@@ -12,9 +12,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 import { authenticate } from "@/app/lib/actions"
-import { useFormState, useFormStatus } from "react-dom"
-import { useEffect, useState } from "react"
-import { signIn } from "@/lib/auth"
+import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 
@@ -37,7 +35,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     async function onSubmit(data: FormData) {
         setIsLoading(true)
 
-        const error = await authenticate(data as any)
+        const error = await authenticate(data)
         setIsLoading(false)
 
         if (error) {

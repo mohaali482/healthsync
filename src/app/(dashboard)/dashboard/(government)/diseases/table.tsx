@@ -14,6 +14,7 @@ import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { diseaseForm } from "@/lib/validations/diseases";
 import { createDiseaseAction } from "@/app/lib/actions/diseases";
+import { Textarea } from "@/components/ui/textarea";
 
 type diseaseFormType = z.infer<typeof diseaseForm>
 
@@ -85,10 +86,9 @@ export default function Table({ data }: { data: Disease[] }) {
                         <Label className="sr-only" htmlFor="description">
                             Description
                         </Label>
-                        <Input
+                        <Textarea
                             id="description"
                             placeholder="Description"
-                            type="text"
                             autoCapitalize="none"
                             autoComplete="description"
                             autoCorrect="off"

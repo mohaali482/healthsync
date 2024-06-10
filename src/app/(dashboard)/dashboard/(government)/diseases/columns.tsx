@@ -15,6 +15,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Icons } from "@/components/icons";
 import { deleteDiseaseAction, updateDiseaseAction } from "@/app/lib/actions/diseases";
 import { diseaseForm } from "@/lib/validations/diseases";
+import { Textarea } from "@/components/ui/textarea";
 
 export type Disease = {
     id: number;
@@ -220,10 +221,9 @@ export const columns: ColumnDef<Disease>[] = [
                                             <Label className="sr-only" htmlFor="description">
                                                 Description
                                             </Label>
-                                            <Input
+                                            <Textarea
                                                 id="description"
                                                 placeholder="Description"
-                                                type="text"
                                                 autoCapitalize="none"
                                                 autoCorrect="off"
                                                 disabled={isLoading}

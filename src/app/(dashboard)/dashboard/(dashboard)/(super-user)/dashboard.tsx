@@ -25,18 +25,23 @@ export default async function SuperUserDashboard() {
 
     return (
         <div>
-            <div className="flex gap-2 justify-between flex-col md:flex-row mb-8">
-                <Link href="/dashboard/hospitals">
-                    <CardComponent title="# of hospitals" value={data[0].toString()} description={"Registered across the country"} />
-                </Link>
-
-                <Link href="/dashboard/equipment-types">
-                    <CardComponent title="# of equipment types" value={data[1].toString()} description="Registered by hospitals" />
-                </Link>
-
-                <CardComponent title="# of resources" value={data[2].toString()} description="Total available" />
-
-                <CardComponent title="# of human resources" value={data[3].toString()} description="Registered across the country" />
+            <div className="flex gap-2 justify-between flex-wrap flex-col md:flex-row mb-8">
+                <div className="w-56">
+                    <Link href="/dashboard/hospitals">
+                        <CardComponent title="# of hospitals" value={data[0].toString()} description={"Registered across the country"} />
+                    </Link>
+                </div>
+                <div className="w-56">
+                    <Link href="/dashboard/equipment-types">
+                        <CardComponent title="# of equipment types" value={data[1].toString()} description="Registered by hospitals" />
+                    </Link>
+                </div>
+                <div className="w-56">
+                    <CardComponent title="# of resources" value={data[2].toString()} description="Total available" />
+                </div>
+                <div className="w-56">
+                    <CardComponent title="# of human resources" value={data[3].toString()} description="Registered across the country" />
+                </div>
             </div>
 
             <div className="mb-8">

@@ -38,17 +38,25 @@ export default async function HospitalDashboard() {
     return (
         <div>
             <div className="flex gap-2 justify-between flex-col md:flex-row mb-8">
-                <Link href="/dashboard/equipment">
-                    <CardComponent title="# of equipments in store" value={data[0].toString()} description={""} />
-                </Link>
+                <div className="w-56">
+                    <Link href="/dashboard/equipment">
+                        <CardComponent title="# of equipments in store" value={data[0].toString()} description={""} />
+                    </Link>
+                </div>
 
-                <Link href="/dashboard/equipment-types">
-                    <CardComponent title="# of resources" value={data[1].toString()} description="" />
-                </Link>
+                <div className="w-56">
+                    <Link href="/dashboard/equipment-types">
+                        <CardComponent title="# of resources" value={data[1].toString()} description="" />
+                    </Link>
+                </div>
 
-                <CardComponent title="# of human resources" value={data[2].toString()} description="" />
+                <div className="w-56">
+                    <CardComponent title="# of human resources" value={data[2].toString()} description="" />
+                </div>
 
-                <CardComponent title="# of data encoders" value={data[3].toString()} description="" />
+                <div className="w-56">
+                    <CardComponent title="# of data encoders" value={data[3].toString()} description="" />
+                </div>
             </div>
 
             <div className="mb-8">

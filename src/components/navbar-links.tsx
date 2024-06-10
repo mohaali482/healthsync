@@ -1,4 +1,5 @@
-import { BarChart3, Biohazard, Briefcase, Home, Hospital, Keyboard, LineChart, NotebookText, Syringe, Users } from "lucide-react";
+import { BarChart3, Biohazard, Briefcase, Home, Hospital, Keyboard, NotebookText, Syringe, Users } from "lucide-react";
+import React from "react";
 
 export const links: {
   SUPER_USER: { link: string; linkName: string; icon: React.ReactNode; activeLinks: string[]; }[]

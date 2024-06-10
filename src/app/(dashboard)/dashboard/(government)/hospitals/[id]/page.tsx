@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     <DataTable data={hospital.medicalEquipmentStore} columns={medicalEquipmentsColumns} actionButton={null} />
                 </div>
                 <div className="pb-10">
-                    <h1 className="font-bold pb-2">Assets</h1>
+                    <h1 className="font-bold pb-2">Resources</h1>
                     <DataTable data={hospital.assets} columns={assetsColumn} actionButton={null} />
                 </div>
             </CardContent>

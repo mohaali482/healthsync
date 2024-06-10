@@ -15,7 +15,7 @@ const linkRegexes = [
     { link: "/dashboard/resources", regex: /^\/dashboard\/resources$/ },
     { link: "/dashboard/reports", regex: /^\/dashboard\/reports$/ },
     { link: "/dashboard/human-resources", regex: /^\/dashboard\/human-resources$/ },
-    { link: "/dashboard/data-encoders", regex: /^\/dashboard\/data-encoders$/ },
+    { link: "/dashboard/data-encoders", regex: /^\/dashboard\/data-encoders(\/add)?$/ },
 ];
 
 

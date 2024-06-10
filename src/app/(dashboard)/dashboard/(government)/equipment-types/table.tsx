@@ -14,6 +14,7 @@ import { createMedicalEquipmentAction } from "@/app/lib/actions/equipment-types"
 import { equipmentForm } from "@/lib/validations/medicalEquipments";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 type equipmentFormType = z.infer<typeof equipmentForm>
 
@@ -85,10 +86,9 @@ export default function Table({ data }: { data: MedicalEquipment[] }) {
                         <Label className="sr-only" htmlFor="description">
                             Description
                         </Label>
-                        <Input
+                        <Textarea
                             id="description"
                             placeholder="Description"
-                            type="text"
                             autoCapitalize="none"
                             autoComplete="description"
                             autoCorrect="off"

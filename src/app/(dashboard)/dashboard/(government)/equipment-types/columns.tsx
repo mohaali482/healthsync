@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { deleteMedicalEquipmentAction, updateMedicalEquipmentAction } from "@/app/lib/actions/equipment-types";
 import { equipmentForm } from "@/lib/validations/medicalEquipments";
+import { Textarea } from "@/components/ui/textarea";
 
 export type MedicalEquipment = {
     id: number;
@@ -237,10 +238,9 @@ export const columns: ColumnDef<MedicalEquipment>[] = [
                                             <Label className="sr-only" htmlFor="description">
                                                 Description
                                             </Label>
-                                            <Input
+                                            <Textarea
                                                 id="description"
                                                 placeholder="Description"
-                                                type="text"
                                                 autoCapitalize="none"
                                                 autoCorrect="off"
                                                 disabled={isLoading}

@@ -59,10 +59,10 @@ export default async function HospitalDashboard() {
                 </div>
             </div>
 
-            <div className="mb-8">
+            {/* <div className="mb-8">
                 <h2 className="text-xl font-bold mb-4">Weekly disease with most reports: <span>{data[4]?.name}</span></h2>
                 <ChartComponent data={data[4]} />
-            </div>
+            </div> */}
 
             <div className="mb-8">
                 <h2 className="text-xl font-bold mb-4">Disease with most reports: <span>{data[5]?.name}</span></h2>

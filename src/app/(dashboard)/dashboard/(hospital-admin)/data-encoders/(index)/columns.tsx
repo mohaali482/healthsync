@@ -100,7 +100,7 @@ export const columns: ColumnDef<Resource>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: function Cell({ row }) {
             const [isDialogOpen, setIsDialogOpen] = useState(false)
             const [openedDialog, setOpenedDialog] = useState<"Edit" | "Delete" | "Change Password" | null>()
             const [isLoading, setIsLoading] = useState(false)

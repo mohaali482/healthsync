@@ -49,7 +49,7 @@ export default function Form({ disease }: { disease: Disease[] }) {
     })
 
     async function onSubmit(data: FormType) {
-        router.push("/dashboard/prediction/result?region=" + data.region + "&startDate=" + data.startDate + "&endDate=" + data.endDate + "&disease=" + data.disease)
+        router.push("/dashboard/prediction/result?region=" + data.region + "&startDate=" + data.startDate + "&endDate=" + data.endDate + "&disease=" + disease.find((data2) => data2.id === parseInt(data.disease))?.name)
     }
 
     return (

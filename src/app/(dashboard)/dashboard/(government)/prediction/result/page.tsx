@@ -28,7 +28,8 @@ export default async function Page({ searchParams }: {
     }
 }) {
     try {
-        const data: ResultData = await JSON.parse(await requestPrediction(searchParams?.region!, searchParams?.startDate!, searchParams?.endDate!))
+        const data: ResultData = await JSON.parse(await requestPrediction(searchParams?.region!, searchParams?.startDate!, searchParams?.endDate!, searchParams?.disease!))
+        console.log(data)
         return (
             <div>
                 <ChartComponent data={data} />
@@ -38,7 +39,11 @@ export default async function Page({ searchParams }: {
             </div>
         )
     } catch (err) {
-        console.log(err)
+        if (err instanceof Error){
+            if (err.message === "Disease not supported yet."){
+                return <div>Disease not supported yet.</div>
+            }
+        }
         return <div>Error occured while trying to contact the server</div>
     }
 }

@@ -3,6 +3,7 @@
 import {
   createMedicalEquipmentStore,
   deleteMedicalEquipmentStore,
+  getAllMedicalEquipmentStoreWithLowQuantityThanThresholdCount,
   getMedicalEquipmentStore,
   getMedicalEquipmentStoreByHospitalIdAndMedicalEquipmentId,
   updateMedicalEquipmentStore,
@@ -17,6 +18,17 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 type medicalEquipmentStoreFormType = z.infer<typeof medicalEquipmentStoreForm>;
+
+export async function getAlertCount() {
+  const session = await auth();
+  if (!session) {
+    return;
+  }
+
+  return await getAllMedicalEquipmentStoreWithLowQuantityThanThresholdCount(
+    session.user.hospitalId!
+  );
+}
 
 export async function createMedicalEquipmentStoreAction(
   data: medicalEquipmentStoreFormType

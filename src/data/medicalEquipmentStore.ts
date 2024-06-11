@@ -50,6 +50,19 @@ export function getAllMedicalEquipmentStoreWithLowQuantityThanThreshold(
   });
 }
 
+export async function getAllMedicalEquipmentStoreWithLowQuantityThanThresholdCount(
+  hospitalId: number
+) {
+  return await prisma.medicalEquipmentStore.count({
+    where: {
+      hospitalId: hospitalId,
+      quantity: {
+        lte: prisma.medicalEquipmentStore.fields.thresholdLevel
+      }
+    }
+  });
+}
+
 export function getAllMedicalEquipmentStoreCount(hospitalId: number) {
   return prisma.medicalEquipmentStore.count({
     where: {

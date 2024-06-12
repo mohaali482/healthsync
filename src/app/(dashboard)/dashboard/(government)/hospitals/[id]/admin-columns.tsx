@@ -226,10 +226,6 @@ export const columns: ColumnDef<Admin>[] = [
                                     Change Password
                                 </DialogTrigger>
                             </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <DialogTrigger onClick={() => setOpenedDialog("Delete")}>Delete</DialogTrigger>
-                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     {

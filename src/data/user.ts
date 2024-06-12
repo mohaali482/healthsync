@@ -15,6 +15,15 @@ export async function getUserById(id: string) {
   });
 }
 
+export async function getHospitalAdminByHospitalId(id: number) {
+  return prisma.user.findFirst({
+    where: {
+      hospitalId: id,
+      role: 'HOSPITAL_ADMIN'
+    }
+  });
+}
+
 export async function getUserByUsername(username: string) {
   return prisma.user.findUnique({
     where: {

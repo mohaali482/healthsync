@@ -10,6 +10,9 @@ declare global {
       SUPER_USER_PASSWORD: string;
       HASH_ROUNDS: string;
       PREDICTION_URL: string;
+
+      RESEND_API_KEY: string;
+      HOME_URL: string;
     }
   }
 }

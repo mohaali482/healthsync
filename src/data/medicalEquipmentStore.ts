@@ -1,9 +1,11 @@
+import sendEmail from '@/app/lib/actions/sendEmail';
 import prisma from '@/lib/prisma';
 import {
   medicalEquipmentStoreEditForm,
   medicalEquipmentStoreForm
 } from '@/lib/validations/medicalEquipmentStore';
 import { z } from 'zod';
+import { getHospitalAdminByHospitalId } from './user';
 
 type medicalEquipmentStoreFormType = z.infer<typeof medicalEquipmentStoreForm>;
 
@@ -75,6 +77,9 @@ export function getMedicalEquipmentStore(id: number) {
   return prisma.medicalEquipmentStore.findFirst({
     where: {
       id
+    },
+    include: {
+      medicalEquipment: true
     }
   });
 }
@@ -95,16 +100,49 @@ type medicalEquipmentStoreEditFormType = z.infer<
   typeof medicalEquipmentStoreEditForm
 >;
 
-export function updateMedicalEquipmentStore(
+export async function updateMedicalEquipmentStore(
   id: number,
   data: medicalEquipmentStoreEditFormType
 ) {
-  return prisma.medicalEquipmentStore.update({
+  await prisma.medicalEquipmentStore.update({
     where: {
       id
     },
     data
   });
+
+  const item = await getMedicalEquipmentStore(id);
+  if (item === null) {
+    return;
+  }
+
+  const hospitalAdmin = await getHospitalAdminByHospitalId(item?.hospitalId);
+  if (hospitalAdmin === null) {
+    return;
+  }
+
+  if (item.quantity < item.thresholdLevel) {
+    console.log('Started sending email');
+    fetch(process.env.HOME_URL + '/api/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        item: item.medicalEquipment.name,
+        currentLevel: item.quantity,
+        thresholdLevel: item.thresholdLevel,
+        timestamp: new Date().toISOString().substring(0, 10),
+        link: process.env.HOME_URL + '/dashboard/alerts',
+        email: hospitalAdmin.email,
+        personName: hospitalAdmin.first_name + ' ' + hospitalAdmin.last_name
+      })
+    })
+      .then(val => {
+        console.log('Finished sending email');
+        console.log(val);
+      })
+      .catch(err => {
+        console.log('[Error]:', err);
+      });
+  }
 }
 
 export function deleteMedicalEquipmentStore(id: number) {
@@ -127,14 +165,47 @@ export function getMedicalEquipmentStoreByHospitalIdAndMedicalEquipmentId(
   });
 }
 
-export function updateMedicalEquipmentStoreQuantity(
+export async function updateMedicalEquipmentStoreQuantity(
   id: number,
   data: { quantity: number }
 ) {
-  return prisma.medicalEquipmentStore.update({
+  await prisma.medicalEquipmentStore.update({
     where: {
       id
     },
     data
   });
+
+  const item = await getMedicalEquipmentStore(id);
+  if (item === null) {
+    return;
+  }
+
+  const hospitalAdmin = await getHospitalAdminByHospitalId(item?.hospitalId);
+  if (hospitalAdmin === null) {
+    return;
+  }
+
+  if (item.quantity < item.thresholdLevel) {
+    console.log('Started sending email');
+    fetch(process.env.HOME_URL + '/api/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        item: item.medicalEquipment.name,
+        currentLevel: item.quantity,
+        thresholdLevel: item.thresholdLevel,
+        timestamp: new Date().toISOString().substring(0, 10),
+        link: process.env.HOME_URL + '/dashboard/alerts',
+        email: hospitalAdmin.email,
+        personName: hospitalAdmin.first_name + ' ' + hospitalAdmin.last_name
+      })
+    })
+      .then(val => {
+        console.log('Finished sending email');
+        console.log(val);
+      })
+      .catch(err => {
+        console.log('[Error]:', err);
+      });
+  }
 }
